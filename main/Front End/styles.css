@@ -1,0 +1,143 @@
+/* font import */
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+Great+Primer+SC&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+
+
+/* page layout */
+.flex-container {
+    display: flex;
+    flex-direction: column;
+}
+.flexNav {
+    align-self: center;
+}
+.flexSystemImage {
+    text-align: center;
+    overflow: hidden;
+    color: #d3d9de;
+    position: relative;
+    bottom: 15px;
+}
+.pageHeader {
+    font-size: 30pt;
+    text-align: center;
+    color: #d3d9de;
+}
+.pageTitle {
+    position: relative;
+    bottom: 5px;
+    padding-bottom: 38px;
+}
+.backgroundImg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    object-fit: fill;
+    width: 100%;
+}
+body {
+    font-family: 'Titillium Web', sans-serif;
+}
+.mapTitle {
+    font-size: 40pt;
+    text-decoration: underline;
+}
+
+
+/* tile layers (WORK IN PROGRESS) */
+/* Note to self: Tenebris is the largest single planet with 91 tiles */
+.factionLayer {
+    z-index: 1;
+}
+.tileTemplateLayer {
+    display: none;
+    z-index: 2;
+    align-self: center;
+    position: relative;
+    height: 40px;
+    width: 40px;
+}
+.buildingsLayer {
+    z-index: 3;
+}
+.toolTipLayer {
+    z-index: 4;
+    position: fixed;
+    display: none;
+}
+
+
+/* dropdown */
+.systemlist {
+    position: static;
+    padding-bottom: 5px;
+    color: #aab1b5;
+}
+.systemlist-content {
+    display: none;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    background-color: white;
+    color: black;
+}
+.systemlist-list-item {
+    padding: 10px 25px 10px 0;
+    font-size: 20px;
+    text-align: left;
+}
+.systemlist:hover .systemlist-content{
+    display: block;
+    position: absolute;
+}
+.systemlist-list-item a {
+    color: black;
+    text-decoration: none;
+}
+.systemlist-list-item a:hover {
+    color: gray;
+}
+
+
+/* Nav Styles */
+.navList {
+    position: relative;
+    bottom: 23px;
+    list-style-type: none;
+    font-size: 15px;
+    width: 99vw;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+.navItem {
+    padding: 0 50px 0 0;
+    display: inline-block;
+}
+.navLink {
+    color: #aab1b5;
+    text-decoration: none;
+}
+.navLink:hover {
+    color: gray;
+}
+#systemLinks {
+    padding-left: 110px;
+}
+#homeSystemLinks {
+    padding-left: 80px;
+}
+#user {
+    padding-left: 80px;
+}
+#faction {
+    padding-left: 115px;
+}
+#battleReports {
+    padding-left: 105px;
+}
+#sectorMap {
+    padding-left: 110px;
+}
+#logout {
+    padding-left: 105px;
+}
