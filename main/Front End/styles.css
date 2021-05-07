@@ -18,14 +18,24 @@
     bottom: 15px;
 }
 .pageHeader {
-    font-size: 30pt;
     text-align: center;
     color: #d3d9de;
 }
 .pageTitle {
-    position: relative;
-    bottom: 5px;
-    padding-bottom: 38px;
+    position: fixed;
+    top: 5px;
+    left: 30vw;
+    padding-bottom: 10vh;
+    font-size: 4.2vw;
+    z-index: 1;
+}
+.titlePlate {
+    position: fixed;
+    left: 20vw;
+    top: 5px;
+    width: 60vw;
+    z-index: 0;
+    padding-bottom: 5px;
 }
 .backgroundImg {
     position: absolute;
@@ -33,7 +43,6 @@
     left: 0;
     z-index: -1;
     object-fit: fill;
-    width: 100%;
 }
 body {
     font-family: 'Titillium Web', sans-serif;
@@ -100,14 +109,16 @@ body {
 
 /* Nav Styles */
 .navList {
-    position: relative;
-    bottom: 23px;
+    position: fixed;
     list-style-type: none;
-    font-size: 15px;
+    font-size: 0.78vw;
     width: 99vw;
+    top: 20vh;
+    left: 0;
     margin: 0;
     padding: 0;
-    text-align: left;
+    text-align: center;
+    z-index: 1;
 }
 .navItem {
     padding: 0 50px 0 0;
@@ -121,23 +132,58 @@ body {
     color: gray;
 }
 #systemLinks {
-    padding-left: 110px;
+    background-image: url(../Images/Buttonless_plate.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 10vw;
+    padding: 5px 3vw;
 }
 #homeSystemLinks {
-    padding-left: 80px;
+    background-image: url(../Images/Buttonless_plate.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 10vw;
+    padding: 5px 3vw;
 }
 #user {
-    padding-left: 80px;
+    background-image: url(../Images/Buttonless_plate.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 10vw;
+    padding: 5px 2vw;
 }
 #faction {
-    padding-left: 115px;
+    background-image: url(../Images/Buttonless_plate.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 10vw;
+    padding: 5px 3vw;
 }
 #battleReports {
-    padding-left: 105px;
+    background-image: url(../Images/Buttonless_plate.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 10vw;
+    padding: 5px 3vw;
 }
 #sectorMap {
-    padding-left: 110px;
+    background-image: url(../Images/Buttonless_plate.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 10vw;
+    padding: 5px 5.75vw;
 }
 #logout {
-    padding-left: 105px;
+    background-image: url(../Images/Buttonless_plate.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 10vw;
+    padding: 5px 5.75vw;
 }
