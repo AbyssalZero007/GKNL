@@ -15,14 +15,14 @@
     overflow: hidden;
     color: #d3d9de;
     position: relative;
-    bottom: 15px;
+    top: 7vw;
 }
 .pageHeader {
     text-align: center;
     color: #d3d9de;
 }
 .pageTitle {
-    position: fixed;
+    position: absolute;
     top: 5px;
     left: 30vw;
     padding-bottom: 10vh;
@@ -30,7 +30,7 @@
     z-index: 1;
 }
 .titlePlate {
-    position: fixed;
+    position: absolute;
     left: 20vw;
     top: 5px;
     width: 60vw;
@@ -43,12 +43,13 @@
     left: 0;
     z-index: -1;
     object-fit: fill;
+    width: 99vw;
 }
 body {
     font-family: 'Titillium Web', sans-serif;
 }
 .mapTitle {
-    font-size: 40pt;
+    font-size: 2vw;
     text-decoration: underline;
 }
 
@@ -85,7 +86,7 @@ body {
 .systemlist-content {
     display: none;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 2;
     background-color: white;
     color: black;
 }
@@ -109,16 +110,14 @@ body {
 
 /* Nav Styles */
 .navList {
-    position: fixed;
+    position: relative;
     list-style-type: none;
     font-size: 0.78vw;
     width: 99vw;
-    top: 20vh;
+    top: 8.5vw;
     left: 0;
-    margin: 0;
-    padding: 0;
     text-align: center;
-    z-index: 1;
+    z-index: auto;
 }
 .navItem {
     padding: 0 50px 0 0;
@@ -131,12 +130,22 @@ body {
 .navLink:hover {
     color: gray;
 }
+#row1 {
+    margin-bottom: 0;
+    padding: 0 0 10px;
+    z-index: 2;
+}
+#row2 {
+    margin: 0;
+    padding: 0 0 10px;
+    top: 7vw;
+}
 #systemLinks {
     background-image: url(../Images/Buttonless_plate.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    width: 10vw;
+    width: 12vw;
     padding: 5px 3vw;
 }
 #homeSystemLinks {
@@ -144,7 +153,7 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    width: 10vw;
+    width: 12vw;
     padding: 5px 3vw;
 }
 #user {
@@ -152,7 +161,7 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    width: 10vw;
+    width: 12vw;
     padding: 5px 2vw;
 }
 #faction {
@@ -160,7 +169,7 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    width: 10vw;
+    width: 12vw;
     padding: 5px 3vw;
 }
 #battleReports {
@@ -168,7 +177,7 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    width: 10vw;
+    width: 12vw;
     padding: 5px 3vw;
 }
 #sectorMap {
@@ -176,7 +185,7 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    width: 10vw;
+    width: 12vw;
     padding: 5px 5.75vw;
 }
 #logout {
@@ -184,6 +193,6 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    width: 10vw;
+    width: 12vw;
     padding: 5px 5.75vw;
 }
