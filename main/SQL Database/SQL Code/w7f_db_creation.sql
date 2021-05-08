@@ -724,6 +724,29 @@ CREATE TABLE IF NOT EXISTS `w7f_map`.`resource_on_planet` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `w7f_map`.`mine_on_tile`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `w7f_map`.`mine_on_tile` ;
+
+CREATE TABLE IF NOT EXISTS `w7f_map`.`mine_on_tile` (
+  `facid` INT NOT NULL,
+  `tileid` INT NULL,
+  INDEX `mine_fac_idx` (`facid` ASC),
+  INDEX `mine_tile_idx` (`tileid` ASC),
+  CONSTRAINT `mine_fac`
+    FOREIGN KEY (`facid`)
+    REFERENCES `w7f_map`.`faction` (`facid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `mine_tile`
+    FOREIGN KEY (`tileid`)
+    REFERENCES `w7f_map`.`tiles` (`tileid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
