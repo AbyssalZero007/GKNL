@@ -335,7 +335,6 @@ CREATE TABLE IF NOT EXISTS `w7f_map`.`sysbonus` (
   `sysbonsid` INT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `desc` VARCHAR(512) NOT NULL,
-  `picture` BLOB NULL,
   PRIMARY KEY (`sysbonsid`),
   UNIQUE INDEX `sysbonsid_UNIQUE` (`sysbonsid` ASC))
 ENGINE = InnoDB;
@@ -366,8 +365,7 @@ CREATE TABLE IF NOT EXISTS `w7f_map`.`gravity` (
   `desc` VARCHAR(256) NOT NULL,
   PRIMARY KEY (`gravid`),
   UNIQUE INDEX `gravid_UNIQUE` (`gravid` ASC),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC),
-  UNIQUE INDEX `desc_UNIQUE` (`desc` ASC))
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
 ENGINE = InnoDB;
 
 
@@ -474,7 +472,7 @@ DROP TABLE IF EXISTS `w7f_map`.`buildings` ;
 
 CREATE TABLE IF NOT EXISTS `w7f_map`.`buildings` (
   `build_id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
+  `name` VARCHAR(45) NOT NULL,
   `desc` VARCHAR(256) NULL,
   `benefit_40k` VARCHAR(512) NULL,
   `benefit_kt` VARCHAR(512) NULL,
@@ -484,8 +482,7 @@ CREATE TABLE IF NOT EXISTS `w7f_map`.`buildings` (
   `benefit_apoc` VARCHAR(512) NULL,
   `benefit_system` VARCHAR(512) NULL,
   PRIMARY KEY (`build_id`),
-  UNIQUE INDEX `bid_UNIQUE` (`build_id` ASC),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
+  UNIQUE INDEX `bid_UNIQUE` (`build_id` ASC))
 ENGINE = InnoDB;
 
 
@@ -501,6 +498,7 @@ CREATE TABLE IF NOT EXISTS `w7f_map`.`faction` (
   `desc` MEDIUMTEXT NULL,
   PRIMARY KEY (`facid`),
   INDEX `home_system_idx` (`home_system` ASC),
+  UNIQUE INDEX `facid_UNIQUE` (`facid` ASC),
   CONSTRAINT `home_system`
     FOREIGN KEY (`home_system`)
     REFERENCES `w7f_map`.`systems` (`sysid`)
@@ -538,7 +536,7 @@ CREATE TABLE IF NOT EXISTS `w7f_map`.`tiles` (
   `build_2` INT NULL,
   `build_3` INT NULL,
   `build_4` INT NULL,
-  `exists` BIT(1) NULL,
+  `exists` BIT(1) NOT NULL,
   `resource_id` INT NULL,
   PRIMARY KEY (`tileid`),
   INDEX `planet_idx` (`planetid` ASC),
@@ -717,7 +715,7 @@ DROP TABLE IF EXISTS `w7f_map`.`mine_on_tile` ;
 
 CREATE TABLE IF NOT EXISTS `w7f_map`.`mine_on_tile` (
   `facid` INT NOT NULL,
-  `tileid` INT NULL,
+  `tileid` INT NOT NULL,
   INDEX `mine_fac_idx` (`facid` ASC),
   INDEX `mine_tile_idx` (`tileid` ASC),
   CONSTRAINT `mine_fac`
@@ -810,17 +808,17 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `w7f_map`;
-INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`, `picture`) VALUES (1, 'Bountiful: Abundant Resources', 'Food, shelter, and most importantly munitions are laughably easy to come across in this system. You may reduce the cost of the first stratagem you use in a Battle Round by 1CP, to a minimum of 1. ', NULL);
-INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`, `picture`) VALUES (2, 'Gravity Tides: Variable planetary gravity', 'The tides of stellar gravity wells sometimes cause regions of a world to make armor feel as light as a feather or as crushing as unpowered power armor. At the start of each battle round roll a d6. If the result is even, add 2” to the movement characteristic of all units with a characteristic of 6” or greater. On an odd result subtract 2” from the movement characteristic of all units with a characteristic of 6” or greater.', NULL);
-INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`, `picture`) VALUES (3, 'Haven: Invigorating Air', 'The air here is pure and oddly calming, distracting the grievously wounded from their injuries. At the start of a player\'s turn, friendly models with more than one wound may recover a single wound, up to their maximum wounds characteristic. Units composed entirely of single wound models may resurrect a single model instead.(Multi wound models may not be resurrected).', NULL);
-INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`, `picture`) VALUES (4, 'Ill-Omened: An Uneasy Feeling', 'Everything always seems to go wrong here causing many to believe rumors that normally would have little to no bearing. Models subtract 1 from their Leadership, and when making combat attrition tests, always treat the unit as being at half strength.', NULL);
-INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`, `picture`) VALUES (5, 'Pirate Den: Mercenaries! Always late!', 'Normally an annoyance pirates can sometimes be offered trinkets or other goods to have them fight by your side, they typically however always show up late…..  At the beginning of the second turn, during a player\'s reinforcements phase, they may deploy two Astra Militarum Infantry Squads as if they had placed those units in strategic reserves at the start of the game. Each Guardsmen is armed with a lasgun and frag grenades, and the Sergeant is armed with a Boltgun and chainsword. Each unit is treated as having no regiment keyword, and cannot be affected by any Astra Militarum strats. These units have the Objective Secured ability. ', NULL);
-INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`, `picture`) VALUES (7, 'Ruined Empire: Forgotten Ordnance', 'Before the battle, after the battlefield has been created, the players roll off. Starting with the winner, players alternate placing ordnance tokens on the battlefield until each player has placed two tokens or until no more tokens can be placed. Each ordnance token must be placed more than 12” away from any other ordnance tokens and cannot be placed in either player’s deployment zone. These ordnance tokens start the battle unexploded. At the start of each battle round the player who is going first rolls 1d6 for each unexploded ordnance token to see if it explodes. The token explodes on a 6 the first round, and one lower each round, until the token explodes on a 2+ from round 5 onwards. Once a token explodes, roll another D6 to determine the type of ordnance. This roll is done once, all other exploding ordnance will be the same type as the first.', NULL);
-INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`, `picture`) VALUES (8, 'Starfarers: “Acquired” Help', 'Sometimes the locals can be “convinced” to help you move your troops provided you fight elsewhere away from their holdings. You may reduce the CP cost of Strategic Reserves by 1 to a minimum of 1.', NULL);
-INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`, `picture`) VALUES (9, 'Stellar Anomaly:  Time Paradox Orders', 'Orders are somehow arriving before they are given and are acting as a forewarning for events to come. You may roll command re-roll one additional time per phase. ', NULL);
-INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`, `picture`) VALUES (6, 'Ruined Empire: Remnants of wars untold', 'Pock marked bunkers, decrepit orbital defence lasers, and dust filled trenches can tell the last tale and fate of an empire that has long been destroyed Each player may incorporate a free fortification (No point or CP cost) if it is under 200 points.', NULL);
-INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`, `picture`) VALUES (10, 'Warp Stasis: Calm Tides', 'The warp is calm here, extremely calm to the point most ships struggle to leave once inside. All Psychic tests subtract 2 from the total. If this would reduce your total to 2 or lower, the Psyker suffers Perils of the Warp. When a Psyker suffers Perils of the Warp instead of suffering D3 mortal wounds, the psyker takes 1 mortal wound.', NULL);
-INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`, `picture`) VALUES (11, 'Warp Turbulence: Raging Tides', 'A warp storm has broken out in this system unleashing all the hazards associated with them. All Psychic tests add 2 to the total. If this would increase your total to 12 or higher, the Psyker suffers Perils of the Warp. When a Psyker suffers Perils of the Warp instead of suffering D3 mortal wounds, the psyker takes 3 mortal wounds.', NULL);
+INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`) VALUES (1, 'Bountiful: Abundant Resources', 'Food, shelter, and most importantly munitions are laughably easy to come across in this system. You may reduce the cost of the first stratagem you use in a Battle Round by 1CP, to a minimum of 1. ');
+INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`) VALUES (2, 'Gravity Tides: Variable planetary gravity', 'The tides of stellar gravity wells sometimes cause regions of a world to make armor feel as light as a feather or as crushing as unpowered power armor. At the start of each battle round roll a d6. If the result is even, add 2” to the movement characteristic of all units with a characteristic of 6” or greater. On an odd result subtract 2” from the movement characteristic of all units with a characteristic of 6” or greater.');
+INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`) VALUES (3, 'Haven: Invigorating Air', 'The air here is pure and oddly calming, distracting the grievously wounded from their injuries. At the start of a player\'s turn, friendly models with more than one wound may recover a single wound, up to their maximum wounds characteristic. Units composed entirely of single wound models may resurrect a single model instead.(Multi wound models may not be resurrected).');
+INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`) VALUES (4, 'Ill-Omened: An Uneasy Feeling', 'Everything always seems to go wrong here causing many to believe rumors that normally would have little to no bearing. Models subtract 1 from their Leadership, and when making combat attrition tests, always treat the unit as being at half strength.');
+INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`) VALUES (5, 'Pirate Den: Mercenaries! Always late!', 'Normally an annoyance pirates can sometimes be offered trinkets or other goods to have them fight by your side, they typically however always show up late…..  At the beginning of the second turn, during a player\'s reinforcements phase, they may deploy two Astra Militarum Infantry Squads as if they had placed those units in strategic reserves at the start of the game. Each Guardsmen is armed with a lasgun and frag grenades, and the Sergeant is armed with a Boltgun and chainsword. Each unit is treated as having no regiment keyword, and cannot be affected by any Astra Militarum strats. These units have the Objective Secured ability. ');
+INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`) VALUES (7, 'Ruined Empire: Forgotten Ordnance', 'Before the battle, after the battlefield has been created, the players roll off. Starting with the winner, players alternate placing ordnance tokens on the battlefield until each player has placed two tokens or until no more tokens can be placed. Each ordnance token must be placed more than 12” away from any other ordnance tokens and cannot be placed in either player’s deployment zone. These ordnance tokens start the battle unexploded. At the start of each battle round the player who is going first rolls 1d6 for each unexploded ordnance token to see if it explodes. The token explodes on a 6 the first round, and one lower each round, until the token explodes on a 2+ from round 5 onwards. Once a token explodes, roll another D6 to determine the type of ordnance. This roll is done once, all other exploding ordnance will be the same type as the first.');
+INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`) VALUES (8, 'Starfarers: “Acquired” Help', 'Sometimes the locals can be “convinced” to help you move your troops provided you fight elsewhere away from their holdings. You may reduce the CP cost of Strategic Reserves by 1 to a minimum of 1.');
+INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`) VALUES (9, 'Stellar Anomaly:  Time Paradox Orders', 'Orders are somehow arriving before they are given and are acting as a forewarning for events to come. You may roll command re-roll one additional time per phase. ');
+INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`) VALUES (6, 'Ruined Empire: Remnants of wars untold', 'Pock marked bunkers, decrepit orbital defence lasers, and dust filled trenches can tell the last tale and fate of an empire that has long been destroyed Each player may incorporate a free fortification (No point or CP cost) if it is under 200 points.');
+INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`) VALUES (10, 'Warp Stasis: Calm Tides', 'The warp is calm here, extremely calm to the point most ships struggle to leave once inside. All Psychic tests subtract 2 from the total. If this would reduce your total to 2 or lower, the Psyker suffers Perils of the Warp. When a Psyker suffers Perils of the Warp instead of suffering D3 mortal wounds, the psyker takes 1 mortal wound.');
+INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`) VALUES (11, 'Warp Turbulence: Raging Tides', 'A warp storm has broken out in this system unleashing all the hazards associated with them. All Psychic tests add 2 to the total. If this would increase your total to 12 or higher, the Psyker suffers Perils of the Warp. When a Psyker suffers Perils of the Warp instead of suffering D3 mortal wounds, the psyker takes 3 mortal wounds.');
 
 COMMIT;
 
