@@ -2,26 +2,27 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="styles.css">
-    <title>Glory Knows No Limit</title>
+    <title>System 1: Lungor</title>
     <script src="..\Back End\TileIndex.js"></script>
     <script src="..\Back End\PageFunctions.js"></script>
 </head>
 <body>
 
-    <header>
-    <h1 style = "font-size:60px;", title="I am a tooltip">System 1: Lungor</h1>
-    <img src="Images\BackgroundPage.jpg" alt="background" class="backgroundImg">
+    <header class="pageHeader">
+    <h1 class="pageTitle">System 1: Lungor</h1>
+    <img src="..\Images\Title_Screen.png" alt="title plate" class="titlePlate">
+    <img src="..\Images\Background_Plate.png" alt="background" class="backgroundImg">
     </header>
 
     <nav class="flex-container">
     <div class="flexNav">
-    <ul class="navList">
-        <li class="navItem">
+    <ul id="row1" class="navList">
+        <li id="systemLinks" class="navItem">
             <div class="systemlist">
                 <h2>System Links</h2>
                 <div class="systemlist-content">
                     <ul style="list-style-type: decimal;">
-                        <li class="systemlist-list-item"><a href="Lungor.html">Lungor</a></li>
+                        <li><a href="Lungor.html">Lungor</a></li>
                         <li class="systemlist-list-item"><a href="">Shrana</a></li>
                         <li class="systemlist-list-item"><a href="">Arrakais</a></li>
                         <li class="systemlist-list-item"><a href="">Shrana</a></li>
@@ -37,7 +38,7 @@
                 </div>
             </div>
         </li>
-        <li class="navItem">
+        <li id="homeSystemLinks" class="navItem">
             <div class="systemlist">
                 <h2>Home System Links</h2>
                 <div class="systemlist-content">
@@ -54,29 +55,40 @@
                 </div>
             </div>
         </li>
-        <li class="navItem">
+        <li id="user" class="navItem">
             <h2><a class="navLink" href="">User</a></h2>
+            <!-- <img src="..\Images\Buttonless_plate.png" style="position: absolute;"> -->
         </li>
-        <li class="navItem">
+        <li id="faction" class="navItem">
             <h2><a class="navLink" href="">Faction</a></h2>
         </li>
-        <li class="navItem">
+        <li id="battleReports" class="navItem">
             <h2><a class="navLink" href="">Battle Reports</a></h2>
         </li>
-        <li class="navItem">
+    </ul>
+    <ul id="row2" class="navList">
+        <li id="sectorMap" class="navItem">
             <h2><a class="navLink" href="HomePage.html">Sector Map</a></h2>
         </li>
-        <li class="navItem">
+        <li id="logout" class="navItem">
             <h2><a class="navLink" href="">Logout</a></h2>
         </li>
     </ul>
     </div>
 
     <div class="flexSystemImage">
-        <h2>System Map:</h2>
-        <img src="Images\LungorScreenshot.jpg" alt="Lungor">
+        <h2 class="mapTitle">Sector Map:</h2>
+        <img src="Images\Tile Forts States\Empty.png" alt="empty tile" class="tileTemplateLayer">
     </div>
     </nav>
+
+    <content>
+
+    </content>
+
+    <footer>
+    </footer>
+
 
 </body>
 </html>
