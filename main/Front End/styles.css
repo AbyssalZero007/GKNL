@@ -152,14 +152,17 @@ body {
     z-index: 2;
 }
 .systemHoverbox{
-    position: absolute;
+    position: relative;
     visibility: hidden;
-    color: black;
-    width: 5vw;
-    background-color: white;
-    text-align: center;
+    left: -3vw;
+    color: white;
+    width: 12vw;
+    background-image: url(../Images/Dropdown_Tile.png);
+    background-position: center;
+    text-align: left;
     z-index: 3;
     border-radius: 2px;
+    padding: 5px 1vw;
 }
 .hoverAnchor {
 }
