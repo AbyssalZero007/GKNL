@@ -5,87 +5,76 @@
     <title>Glory Knows No Limit</title>
     <script src="..\Back End\TileIndex.js"></script>
     <script src="..\Back End\PageFunctions.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
     <header class="pageHeader">
-    <h1 class="pageTitle">Glory Knows No Limit</h1>
-    <img src="..\Images\Title_Screen.png" alt="title plate" class="titlePlate">
-    <img src="..\Images\Background_Plate.png" alt="background" class="backgroundImg">
+        <div class="flex-container">
+            <div class="flex-title">
+                <h1 class="pageTitle">Glory Knows No Limit</h1>
+            </div>
+        </div>
     </header>
 
-    <nav class="flex-container">
-    <div class="flexNav">
-    <ul id="row1" class="navList">
-        <li id="systemLinks" class="navItem">
-            <div class="systemlist">
-                <h2>System Links</h2>
-                <div class="systemlist-content">
-                    <ul style="list-style-type: decimal;">
-                        <li class="systemlist-list-item"><a href="Lungor.html">Lungor</a></li>
-                        <li class="systemlist-list-item"><a href="">Shrana</a></li>
-                        <li class="systemlist-list-item"><a href="">Arrakais</a></li>
-                        <li class="systemlist-list-item"><a href="">Shrana</a></li>
-                        <li class="systemlist-list-item"><a href="">Mar-Adett</a></li>
-                        <li class="systemlist-list-item"><a href="">Amlitzer</a></li>
-                        <li class="systemlist-list-item"><a href="">Perditia</a></li>
-                        <li class="systemlist-list-item"><a href="">Batar</a></li>
-                        <li class="systemlist-list-item"><a href="">Corrcon</a></li>
-                        <li class="systemlist-list-item"><a href="">Val Ceti</a></li>
-                        <li class="systemlist-list-item"><a href="">Tarsus</a></li>
-                        <li class="systemlist-list-item"><a href="">Absconrio</a></li>
-                    </ul>
-                </div>
-            </div>
-        </li>
-        <li id="homeSystemLinks" class="navItem">
-            <div class="systemlist">
-                <h2>Home System Links</h2>
-                <div class="systemlist-content">
-                    <ul style="list-style-type: decimal;">
-                        <li class="systemlist-list-item"><a href="">System 12</a></li>
-                        <li class="systemlist-list-item"><a href="">System 13</a></li>
-                        <li class="systemlist-list-item"><a href="">System 14</a></li>
-                        <li class="systemlist-list-item"><a href="">System 15</a></li>
-                        <li class="systemlist-list-item"><a href="">System 16</a></li>
-                        <li class="systemlist-list-item"><a href="">System 17</a></li>
-                        <li class="systemlist-list-item"><a href="">System 18</a></li>
-                        <li class="systemlist-list-item"><a href="">System 19</a></li>
-                    </ul>
-                </div>
-            </div>
-        </li>
-        <li id="user" class="navItem">
+    <nav>
+    <ul class="navList">
+        <li class="navItem">
             <h2><a class="navLink" href="">User</a></h2>
-            <!-- <img src="..\Images\Buttonless_plate.png" style="position: absolute;"> -->
         </li>
-        <li id="faction" class="navItem">
+        <li class="navItem">
             <h2><a class="navLink" href="">Faction</a></h2>
         </li>
-        <li id="battleReports" class="navItem">
-            <h2><a class="navLink" href="">Battle Reports</a></h2>
-        </li>
-    </ul>
-    <ul id="row2" class="navList">
-        <li id="sectorMap" class="navItem">
+        <li class="navItem">
             <h2><a class="navLink" href="HomePage.html">Sector Map</a></h2>
         </li>
-        <li id="logout" class="navItem">
+        <li class="navItem">
             <h2><a class="navLink" href="">Logout</a></h2>
         </li>
     </ul>
-    </div>
-
-    <div class="flexSystemImage">
-        <h2 class="mapTitle">Sector Map:</h2>
-        <img src="Images\Tile Forts States\Empty.png" alt="empty tile" class="tileTemplateLayer">
-    </div>
     </nav>
 
     <content>
+    <div>
+        <h2 class="mapTitle">Sector Map:</h2>
+    </div>
+    <div class="backgroundImg">
+        <img src="..\Images\Screen.png" alt="map" style="object-fit: contain; width: 100%; height: auto;">
+    </div>
     <div class="contentContainer">
-        <div>
-            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="col-6"><img src="..\Images\TransparentMars.png" alt="Placeholder-round" class="systemButton"></a>
+        <div id="Lungor" class="hoverAnchor">
+            <a href="Lungor.html"><img src="..\Images\TransparentMars.png" alt="Lungor" class="systemButton"></a>
+            <p class="systemHoverbox"> test </p>
+        </div>
+        <div id="Arrakais">
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="..\Images\TransparentMars.png" alt="Placeholder-round" class="systemButton"></a>
+        </div>
+        <div id="Shrana">
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="..\Images\TransparentMars.png" alt="Placeholder-round" class="systemButton"></a>
+        </div>
+        <div id="Mar-Adett">
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="..\Images\TransparentMars.png" alt="Placeholder-round" class="systemButton"></a>
+        </div>
+        <div id="Amlitzer">
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="..\Images\TransparentMars.png" alt="Placeholder-round" class="systemButton"></a>
+        </div>
+        <div id="Perditia">
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="..\Images\TransparentMars.png" alt="Placeholder-round" class="systemButton"></a>
+        </div>
+        <div id="Batar">
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="..\Images\TransparentMars.png" alt="Placeholder-round" class="systemButton"></a>
+        </div>
+        <div id="Corrcon">
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="..\Images\TransparentMars.png" alt="Placeholder-round" class="systemButton"></a>
+        </div>
+        <div id="Val_Ceti">
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="..\Images\TransparentMars.png" alt="Placeholder-round" class="systemButton"></a>
+        </div>
+        <div id="Tarsus">
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="..\Images\TransparentMars.png" alt="Placeholder-round" class="systemButton"></a>
+        </div>
+        <div id="Absconrio">
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="..\Images\TransparentMars.png" alt="Placeholder-round" class="systemButton"></a>
         </div>
     </div>
     </content>
