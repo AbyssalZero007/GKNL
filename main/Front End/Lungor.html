@@ -3,16 +3,26 @@
 <head>
     <link rel="stylesheet" href="styles.css">
     <title>Glory Knows No Limit</title>
-    <script src="..\Back End\sessvars.js"></script>
-    <script src="..\Back End\PlanetCreator.js"></script>
+    <script type = "text/javascript" src="../Back End/sessvars.js"></script>
+    <script type = "text/javascript" src="../Back End/PlanetCreator.js"></script>
+    <script type = "text/javascript" src="../Back End/Placeholder (merge with Planet Creator when it is done).js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--  WORK IN PROGRESS
+    <script>
+        function test() {
+            var str = sessvars.locationID.toString();
+            document.getElementById('pageHead').innerHTML = str;
+            sessvars.locationID = sessvars.locationID + 6;
+        }
+    </script>
+    -->
 </head>
-<body>
+<body onload="test()">
 
     <header class="pageHeader">
         <div class="flex-container">
             <div class="flex-title">
-                <h1 class="pageTitle">Lungor</h1>
+                <h1 id="pageHead" class="pageTitle">Lungor</h1>
             </div>
         </div>
     </header>

@@ -20,6 +20,14 @@ sessvars=function(){
 
 	var x={};
 	
+	function getValue() {
+		return x;
+	}
+
+	function replaceValue(input) {
+		x = input;
+	}
+
 	x.$={
 		prefs:{
 			memLimit:2000,

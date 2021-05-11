@@ -1,0 +1,9 @@
+1) instantiate 2 unique system sessvars (one for keeping track of the planet and one for keeping track of the system) in system page (These should wipe any 
+   other value each time you return to this page, return to the home page, or close the page)
+2) call a function on page load to add a number 1 through the number of planets to the unique planet sessvars
+3) call another function to add the system number to the second sessvars
+4) put these into local variables
+5) finally on page load, clear sessvars memory
+6) on the planet page check add that sessvars to the amount of planets in all systems before this (identified by the system sessvars) to get its planet id
+7) use that planet id to pull tile data
+8) use the tile data to build the page
