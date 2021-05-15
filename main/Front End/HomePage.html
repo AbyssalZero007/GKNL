@@ -3,8 +3,9 @@
 <head>
     <link rel="stylesheet" href="styles.css">
     <title>Glory Knows No Limit</title>
-    <script src="..\Back End\sessvars.js"></script>
-    <script src="..\Back End\PlanetCreator.js"></script>
+    <script type = "text/javascript" src="../Back End/sessvars.js"></script>
+    <script type = "text/javascript" src="../Back End/PlanetCreator.js"></script>
+    <script type = "text/javascript" src="../Back End/Placeholder (merge with Planet Creator when it is done).js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -12,8 +13,11 @@
     <header class="pageHeader">
         <div class="flex-container">
             <div class="flex-title">
-                <h1 class="pageTitle">Glory Knows No Limit</h1>
+                <h1 id="pageHead" class="pageTitle">Glory Knows No Limit</h1>
             </div>
+        </div>
+        <div id="diagBox" style="position: fixed; top: 0; left: 0; width: 10%; background-color: gray; color: white; font-size: 12 pt;">
+            <p id="diagText">test</p>
         </div>
     </header>
 
@@ -44,7 +48,7 @@
     <div class="contentContainer">
         <div id="Lungor" class="hoverAnchor">
             <a href="Lungor.html"><img src="..\Images\SystemIcons\Lungor.png" alt="Lungor" class="systemButton"></a>
-            <p class="systemHoverbox"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae libero sagittis, auctor neque vitae, maximus felis. 
+            <p class="systemHoverbox"><span style="font-size: 150%; text-decoration: underline;">Test:</span><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae libero sagittis, auctor neque vitae, maximus felis. 
             Mauris eu nunc sed velit viverra vestibulum ut id mi. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis sed dignissim metus. </p>
         </div>
         <div id="Arrakais" class="hoverAnchor">

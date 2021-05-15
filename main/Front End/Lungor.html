@@ -3,17 +3,31 @@
 <head>
     <link rel="stylesheet" href="styles.css">
     <title>Glory Knows No Limit</title>
-    <script src="..\Back End\sessvars.js"></script>
-    <script src="..\Back End\PlanetCreator.js"></script>
+    <script type = "text/javascript" src="../Back End/sessvars.js"></script>
+    <script type = "text/javascript" src="../Back End/PlanetCreator.js"></script>
+    <script type = "text/javascript" src="../Back End/Placeholder (merge with Planet Creator when it is done).js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script> 
+        sessvars.planetID = 0;
+        sessvars.systemID = 0;
+        sessvars.systemLink = "";
+        var pageLink = "Lungor.html";
+        var systemNumber = 1;
+        function startFunction() {
+            sessvars.systemID = sessvars.systemID + systemNumber;
+            sessvars.systemLink = pageLink;
+        }
+    </script>
 </head>
-<body>
-
+<body onload="startFunction()">
     <header class="pageHeader">
         <div class="flex-container">
             <div class="flex-title">
-                <h1 class="pageTitle">Lungor</h1>
+                <h1 id="pageHead" class="pageTitle">Lungor</h1>
             </div>
+        </div>
+        <div id="diagBox" style="position: fixed; top: 0; left: 0; width: 10%; background-color: gray; color: white; font-size: 12 pt;">
+            <p id="diagText">test</p>
         </div>
     </header>
 
@@ -42,8 +56,8 @@
         <img src="..\Images\Screen.png" alt="map" style="object-fit: contain; width: 100%; height: auto;">
     </div>
     <div class="contentContainer">
-        <div id="Lungor" class="hoverAnchor"><!-- code for sessvar instantiation -> onclick="idStore(PLANETNAME, SYSTEMNAME)" -->
-            <a href="Lungor.html"><img src="..\Images\SystemIcons\Lungor.png" alt="Lungor" class="systemButton"></a>
+        <div id="Lungor" class="hoverAnchor" onclick="sessvars.planetID = sessvars.planetID + 1">
+            <a href="PlanetTemplate.html"><img src="..\Images\SystemIcons\Lungor.png" alt="Lungor" class="systemButton"></a>
             <p class="systemHoverbox"> test </p>
         </div>
         <div id="Arrakais">

@@ -154,15 +154,16 @@ body {
 .systemHoverbox{
     position: relative;
     visibility: hidden;
-    left: -3vw;
+    left: -4.5vw;
     color: white;
     width: 12vw;
     background-image: url(../Images/Dropdown_Tile.png);
     background-position: center;
-    text-align: left;
+    text-align: center;
     z-index: 3;
-    border-radius: 2px;
-    padding: 5px 1vw;
+    padding: .75vw 1vw;
+    border-style: solid;
+    border-color: black;
 }
 .hoverAnchor {
 }
