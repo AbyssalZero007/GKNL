@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="stuquery.hexmap.css">
+    <title>Glory Knows No Limit</title>
+    <script type="text/javascript" src="..\Back End\sessvars.js"></script>
+    <script type="text/javascript" src="..\Back End\PlanetCreator.js"></script>
+    <script type="text/javascript" src="..\Back End\stuquery.js"></script>
+    <script type="text/javascript" src="..\Back End\stuquery.hexmap.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+    function startFunction() {
+        document.getElementById('diagBox').innerHTML = sessvars.systemLink.toString() + "<br>" + sessvars.systemID.toString() + "<br>" + sessvars.planetID.toString();
+        document.getElementById('backLink').href = sessvars.systemLink.toString();
+        var widthPixel = document.getElementById('hexmapContainer').offsetWidth;
+        var heightPixel = document.getElementById('hexmapContainer').offsetHeight;
+        document.getElementById('hexDrawingCanvas').setAttribute('width', widthPixel);
+        document.getElementById('hexDrawingCanvas').setAttribute('height', heightPixel);
+
+        // strait line of hexes
+        for (i = 0; i < 1; i++) {
+            var canvasMeasure = document.getElementById('hexDrawingCanvas');
+            let angle = 2 * Math.PI / 6;
+            var x = canvasMeasure.width / 2;
+            var y = canvasMeasure.height / 2;
+            var r = 50;
+            var xSpacer = (r + (r*Math.cos(angle)))*i;
+            if (i%2 == 1) {
+                var ySpacer = r*Math.sin(angle);
+            } else {
+                var ySpacer = 0;
+            }
+            hexDraw(x+xSpacer, y+ySpacer, 50);
+        }
+        
+        for (i = 0; i < 7; i++) {
+            var canvasMeasure = document.getElementById('hexDrawingCanvas');
+            let angle = 2 * Math.PI / 6;
+            var x = canvasMeasure.width / 2;
+            var y = canvasMeasure.height / 2;
+            var r = 50;
+
+            var xSpacer = (r + (r*Math.cos(angle)))*i;
+
+            if (i == 0) {
+                var ySpacer = 0;
+            } else if (i%2==1 && i < 7) {
+                var ySpacer = 0;
+            }
+
+            //code depo - delete when done
+            var ySpacer = r*Math.sin(angle);
+            var ySpacer = 0;
+
+            hexDraw(x+xSpacer, y+ySpacer, 50);
+        }
+        
+    }
+    /*
+    function hexDraw() {
+        var str = "";
+        for (i = 0; i < 6; i++) {
+            var startX = 50;
+            var startY = 50;
+            var r = 50;
+            var a = 2 * Math.PI / 6;
+            var x = startX + r * Math.cos(a * i);
+            var y = startY + r * Math.sin(a * i);
+            str += Math.round(x*100)/100 + "," + Math.round(y*100)/100 + " ";
+        }
+        document.getElementById('hex').setAttribute("points", str)
+    }
+    */
+
+    function hexDraw(x, y, r) {
+        var canvas = document.getElementById('hexDrawingCanvas');
+        var ctx = canvas.getContext('2d');
+        // will eventually need to make x and y equal the center point, and somehow make r dynamic
+        let a = 2 * Math.PI / 6;
+        ctx.beginPath();
+        for (var i = 0; i < 6; i++) {
+            ctx.lineTo(x + r * Math.cos(a * i), y + r * Math.sin(a * i));
+        }
+        ctx.closePath();
+        ctx.stroke();
+    }
+    </script>
+</head>
+<body onload="startFunction();">
+
+    <header class="pageHeader">
+        <div class="flex-container">
+            <div class="flex-title">
+                <h1 id="pageHead" class="pageTitle"></h1>
+            </div>
+        </div>
+        <div id="diagBox" style="position: fixed; top: 0; left: 0; width: 10%; background-color: gray; color: white; font-size: 12 pt;">
+            <p id="diagText">test</p>
+        </div>
+    </header>
+
+    <nav>
+    <ul class="navList">
+        <li class="navItem">
+            <h2><a class="navLink" href="">User</a></h2>
+        </li>
+        <li class="navItem">
+            <h2><a class="navLink" href="">Faction</a></h2>
+        </li>
+        <li class="navItem">
+            <h2><a class="navLink" href="HomePage.html">Sector Map</a></h2>
+        </li>
+        <li class="navItem">
+            <h2><a class="navLink" href="">Logout</a></h2>
+        </li>
+        <li>
+            <h2><a id="backLink" class="navLink" href="">Back to System</a></h2>
+        </li>
+    </ul>
+    </nav>
+
+    <content>
+    <!--
+    Current Plan:
+        Planet Image taking up 75% of width floated to the right of the screen. this image will be overlayed with the hex grid (still need to figure out)
+        Side Bar, floated left, taking up the other 25% containing a table of what buildings are on the planet
+        Bottem Bar, containing Lore about the planet and planetary traits pulled from DB
+    -->
+    <div class="flexTileMap">
+        <div id="infoBar">
+            <h3>Testetstetsidusfhsdoihf'pijh</h3>
+        </div>
+        <div id="tileMap">
+            <img src="..\Images\Background_Plate.png" alt="TileBackground" style="object-fit: contain; width: 100%; ">
+
+            <div id="hexmapContainer"><!-- Overlayed tile hex map -->
+                <canvas id="hexDrawingCanvas"></canvas>
+                <!--
+                <svg width="100%" height="100%">
+                    <polygon id="hex" points="" style="fill:lime;stroke:purple;stroke-width:5;fill-rule:nonzero;"/>
+                </svg>
+                -->
+            </div>
+        </div>
+        </div>
+        <div id="loreBar" style="background-color: white; text-align: center;">
+            <h3>Testetstetsidusfhsdoihf'pijh</h3>
+    </div>
+    </content>
+
+    <footer>
+    </footer>
+
+
+</body>
+</html>
