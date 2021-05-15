@@ -1,4 +1,4 @@
-import  sys
+import sys
 
 # module import
 import mariadb
