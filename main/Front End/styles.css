@@ -76,6 +76,59 @@ body {
 }
 
 
+
+.flexTileMap {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border-top-style: solid;
+    border-color: white;
+    padding-top: 2vw;
+}
+#tileMap {
+    flex-basis: 75%;
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+#infoBar {
+    flex-basis: 25%;
+    background-color: white;
+}
+#positioning {
+    position: relative;
+}
+#map {
+    background-color: white;
+    position: relative;
+    z-index: 1;
+}
+.hexmapPosition {
+    position: absolute;
+    color: white;
+    z-index: 2;
+}
+
+
+/* Hexmap Experiment */
+#hexmapContainer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: white;
+    background-color: gray;
+    z-index: 2;
+}
+#hexDrawingCanvas {
+    width: 100%;
+    height: auto;
+}
+
+
+
+
 /* dropdown */
 .systemlist {
     position: static;

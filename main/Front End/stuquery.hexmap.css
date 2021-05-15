@@ -2,8 +2,9 @@
 	box-sizing: border-box;
 	display: block;
 	transform: scale(1);
-	position: relative;
+	position: absolute;
 	max-width: 100%;
+	z-index: 2;
 }
 .hexmapinner {
 	list-style: none;
