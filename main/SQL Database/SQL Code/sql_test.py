@@ -1,4 +1,5 @@
-import sys
+import pico
+from pico import PicoApp
 
 # module import
 import mariadb
@@ -18,6 +19,7 @@ except mariadb.Error as e:
 # Instantiate Cursor
 cur = conn.cursor()
 
+@pico.expose()
 
 def get_system(cur):
     systems = []
