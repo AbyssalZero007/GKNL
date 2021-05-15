@@ -1,3 +1,6 @@
 [submodule "main/main/Pico/pico"]
 	path = main/main/Pico/pico
+	url = git@github.com/fergalwalsh/pico.git
+[submodule "pico"]
+	path = pico
 	url = https://github.com/fergalwalsh/pico.git
