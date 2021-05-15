@@ -5,15 +5,27 @@
     <title>Glory Knows No Limit</title>
     <script src="..\Back End\sessvars.js"></script>
     <script src="..\Back End\PlanetCreator.js"></script>
+    <script type="text/javascript" src="..\Back End\stuquery.js"></script>
+    <script type="text/javascript" src="..\Back End\stuquery.hexmap.js"></script>
+    <link rel="stylesheet" href="stuquery.hexmap.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+    function startFunction() {
+        document.getElementById('diagBox').innerHTML = sessvars.systemLink.toString() + "<br>" + sessvars.systemID.toString() + "<br>" + sessvars.planetID.toString();
+        document.getElementById('backLink').href = sessvars.systemLink.toString();
+    }
+    </script>
 </head>
-<body>
+<body onload="startFunction()">
 
     <header class="pageHeader">
         <div class="flex-container">
             <div class="flex-title">
-                <h1 class="pageTitle"></h1>
+                <h1 id="pageHead" class="pageTitle"></h1>
             </div>
+        </div>
+        <div id="diagBox" style="position: fixed; top: 0; left: 0; width: 10%; background-color: gray; color: white; font-size: 12 pt;">
+            <p id="diagText">test</p>
         </div>
     </header>
 
@@ -31,6 +43,9 @@
         <li class="navItem">
             <h2><a class="navLink" href="">Logout</a></h2>
         </li>
+        <li>
+            <h2><a id="backLink" class="navLink" href="">Back to System</a></h2>
+        </li>
     </ul>
     </nav>
 
@@ -41,6 +56,7 @@
         Side Bar, floated left, taking up the other 25% containing a table of what buildings are on the planet
         Bottem Bar, containing Lore about the planet and planetary traits pulled from DB
     -->
+    
     </content>
 
     <footer>

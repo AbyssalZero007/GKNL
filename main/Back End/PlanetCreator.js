@@ -1,7 +1,6 @@
 // Variables
 var planets = [];
 var tileCatalog = []; //array indexes match from each planet and its tile map. I.e. planets[5] corrosponds to tileCatalog[5]
-sessvars.locationID = 0;
 
 function onload(systemName) {
     //Access Database here
