@@ -1,0 +1,23 @@
+Front-end:
+    Planet Page template
+    Sector Interactive map (Done!)
+    System Interactive map (Done!)
+    Images and layout for maps
+    Redesign of nav bar when done (Done!)
+    Login Page
+    Bidding Page
+Back-end:
+    Account system (just captain accounts for now?)
+    Bidding system (Last thing)
+    JS reading of python (?, Grawr doing this)
+    Javascript Todos:
+        For Sector Map: Nothing
+        For System map: Nothing(? Need to confirm this)
+        For Planetary maps:
+            Step 1) Make a copy of template 
+            Step 2) Pull data from DB about that planet (with input from the system map, probably)
+            Step 3) Build Buildings chart and check if captain account
+            Step 4) Write Planet Lore (? Is this in the DB)
+            Step 5) Copy Tile Template
+            Step 6) build tile map and populate with data from DB
+            Step 7) Profit?

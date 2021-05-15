@@ -7,50 +7,49 @@
     display: flex;
     flex-direction: column;
 }
-.flexNav {
+.flex-title {
     align-self: center;
-}
-.flexSystemImage {
     text-align: center;
-    overflow: hidden;
-    color: #d3d9de;
-    position: relative;
-    top: 7vw;
+}
+header {
+    margin-bottom: 0; 
 }
 .pageHeader {
     text-align: center;
     color: #d3d9de;
 }
 .pageTitle {
-    position: absolute;
-    top: 5px;
-    left: 30vw;
-    padding-bottom: 10vh;
-    font-size: 4.2vw;
-    z-index: 1;
-}
-.titlePlate {
-    position: absolute;
-    left: 20vw;
-    top: 5px;
+    position: relative;
+    top: 1vw;
     width: 60vw;
-    z-index: 0;
-    padding-bottom: 5px;
+    height: 12vw;
+    font-size: 4.2vw;
+    margin: 1vw auto 0;
+    padding-top: 2.5vw;
+    background-image: url(../Images/Title_Screen.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 .backgroundImg {
     position: absolute;
-    top: 0;
     left: 0;
     z-index: -1;
-    object-fit: fill;
-    width: 99vw;
+    display: block;
 }
 body {
     font-family: 'Titillium Web', sans-serif;
+    background-image: url(../Images/Background_Plate_texture.png);
+    background-size: cover;
 }
 .mapTitle {
     font-size: 2vw;
     text-decoration: underline;
+    text-align: center;
+    color: #d3d9de;
+    padding: 1.5vw 0 0;
+    display: block;
+    border-top-style: solid;
 }
 
 
@@ -80,8 +79,8 @@ body {
 /* dropdown */
 .systemlist {
     position: static;
-    padding-bottom: 5px;
     color: #aab1b5;
+    padding-bottom: 3px;
 }
 .systemlist-content {
     display: none;
@@ -91,8 +90,8 @@ body {
     color: black;
 }
 .systemlist-list-item {
-    padding: 10px 25px 10px 0;
-    font-size: 20px;
+    padding: .5vw 1vw .8vw;
+    font-size: 1vw;
     text-align: left;
 }
 .systemlist:hover .systemlist-content{
@@ -110,89 +109,112 @@ body {
 
 /* Nav Styles */
 .navList {
-    position: relative;
+    position: static;
     list-style-type: none;
     font-size: 0.78vw;
-    width: 99vw;
-    top: 8.5vw;
-    left: 0;
     text-align: center;
-    z-index: auto;
+    width: 98%;
 }
 .navItem {
-    padding: 0 50px 0 0;
     display: inline-block;
+    margin: auto 2vw;
 }
 .navLink {
     color: #aab1b5;
     text-decoration: none;
+    background-image: url(../Images/Buttonless_plate.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 15vw;
+    height: auto;
+    padding: 1vw 5vw;
+    margin-bottom: -2vw;
 }
 .navLink:hover {
     color: gray;
 }
-#row1 {
-    margin-bottom: 0;
-    padding: 0 0 10px;
+
+
+/* Content Button Styles */
+/* grid on background is 60x50 squares */
+.contentContainer {
+    width: 100%;
+    height: 80vw;
+    text-align: center;
+    display: grid;
+    grid-auto-columns: 1.666%;
+    grid-auto-rows: 2%;
+}
+.systemButton {
+    width: 5vw;
+    height: auto;
     z-index: 2;
 }
-#row2 {
-    margin: 0;
-    padding: 0 0 10px;
-    top: 6.5vw;
-}
-#systemLinks {
-    background-image: url(../Images/Buttonless_plate.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+.systemHoverbox{
+    position: relative;
+    visibility: hidden;
+    left: -3vw;
+    color: white;
     width: 12vw;
-    padding: 5px 3vw;
-}
-#homeSystemLinks {
-    background-image: url(../Images/Buttonless_plate.png);
-    background-size: contain;
-    background-repeat: no-repeat;
+    background-image: url(../Images/Dropdown_Tile.png);
     background-position: center;
-    width: 12vw;
-    padding: 5px 3vw;
+    text-align: left;
+    z-index: 3;
+    border-radius: 2px;
+    padding: 5px 1vw;
 }
-#user {
-    background-image: url(../Images/Buttonless_plate.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 12vw;
-    padding: 5px 2vw;
+.hoverAnchor {
 }
-#faction {
-    background-image: url(../Images/Buttonless_plate.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 12vw;
-    padding: 5px 3vw;
+.hoverAnchor:hover .systemHoverbox {
+    visibility: visible;
 }
-#battleReports {
-    background-image: url(../Images/Buttonless_plate.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 12vw;
-    padding: 5px 3vw;
+
+
+/* Home Page Grid IDs */
+#Lungor {
+    grid-column: 48 / span 1;
+    grid-row: 6 / span 1;
 }
-#sectorMap {
-    background-image: url(../Images/Buttonless_plate.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 12vw;
-    padding: 5px 5.75vw;
+#Arrakais {
+    grid-column: 21 / span 1;
+    grid-row: 18 / span 1;
 }
-#logout {
-    background-image: url(../Images/Buttonless_plate.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 12vw;
-    padding: 5px 5.75vw;
+#Shrana {
+    grid-column: 33 / span 1;
+    grid-row: 16 / span 1;
 }
+#Mar-Adett {
+    grid-column: 45 / span 1;
+    grid-row: 17 / span 1;
+}
+#Amlitzer {
+    grid-column: 11 / span 1;
+    grid-row: 27 / span 1;
+}
+#Perditia {
+    grid-column: 45 / span 1;
+    grid-row: 25 / span 1;
+}
+#Batar {
+    grid-column: 34 / span 1;
+    grid-row: 26 / span 1;
+}
+#Corrcon {
+    grid-column: 26 / span 1;
+    grid-row: 28 / span 1;
+}
+#Val_Ceti {
+    grid-column: 12 / span 1;
+    grid-row: 34 / span 1;
+}
+#Tarsus {
+    grid-column: 35 / span 1;
+    grid-row: 34 / span 1;
+}
+#Absconrio {
+    grid-column: 26 / span 1;
+    grid-row: 42 / span 1;
+}
+
+
