@@ -18,7 +18,7 @@
         document.getElementById('hexDrawingCanvas').setAttribute('width', widthPixel);
         document.getElementById('hexDrawingCanvas').setAttribute('height', heightPixel);
 
-        // strait line of hexes
+        /* strait line of hexes
         for (i = 0; i < 1; i++) {
             var canvasMeasure = document.getElementById('hexDrawingCanvas');
             let angle = 2 * Math.PI / 6;
@@ -31,29 +31,60 @@
             } else {
                 var ySpacer = 0;
             }
-            hexDraw(x+xSpacer, y+ySpacer, 50);
+            hexDraw(x+xSpacer, y+ySpacer, r);
         }
+        */
         
-        for (i = 0; i < 7; i++) {
+        //spiral try
+        //loop for tiles
+        var layerCounter = 0;
+        var mHolder;
+        var nHolder;
+        for (i = 0; i < 15; i++) {
             var canvasMeasure = document.getElementById('hexDrawingCanvas');
             let angle = 2 * Math.PI / 6;
-            var x = canvasMeasure.width / 2;
-            var y = canvasMeasure.height / 2;
-            var r = 50;
+            var centerX = canvasMeasure.width / 2;
+            var centerY = canvasMeasure.height / 2;
+            var r = 50;//needs to be a variable distance
 
-            var xSpacer = (r + (r*Math.cos(angle)))*i;
+            if (i==0) {
+                hexdraw(centerX, centerY, r);
+            } else if (i%2 == 1) {
+                var xPos = 0;
+                var yPos = 0;
+                var m = xPos*r;
+                var n = yPos*r*Math.sin(angle);
+                for (j = 0; j < (i*6); j++) {
+                    if (i==1) {
+                        if (j==0) {
+                            xPos = 1;
+                            yPos = 1;
+                        } else if (j=1) {
+                            xPos = 0;
+                            yPos = 2;
+                        } else if (j=2) {
+                            xPos = -1;
+                            yPos = 1;
+                        } else if (j=3) {
+                            xPos = -1;
+                            yPos = 1;
+                        }
+                    }
 
-            if (i == 0) {
-                var ySpacer = 0;
-            } else if (i%2==1 && i < 7) {
-                var ySpacer = 0;
+                    hexdraw((centerX));
+                }
+            } else if (i%2==0) {
+                for (j = 0; j < (i*6); j++) {
+
+                }
             }
+            for (j=0; j<layerCounter; j)
 
-            //code depo - delete when done
-            var ySpacer = r*Math.sin(angle);
-            var ySpacer = 0;
+            if () {
+                    layerCounter += 1;
+            }
+            
 
-            hexDraw(x+xSpacer, y+ySpacer, 50);
         }
         
     }
