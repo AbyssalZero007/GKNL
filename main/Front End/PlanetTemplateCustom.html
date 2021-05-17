@@ -2,123 +2,32 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="stuquery.hexmap.css">
     <title>Glory Knows No Limit</title>
     <script type="text/javascript" src="..\Back End\sessvars.js"></script>
     <script type="text/javascript" src="..\Back End\PlanetCreator.js"></script>
-    <script type="text/javascript" src="..\Back End\stuquery.js"></script>
-    <script type="text/javascript" src="..\Back End\stuquery.hexmap.js"></script>
+    <script type="text/javascript" src="..\Back End\CustomHexMapCode.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
     function startFunction() {
-        document.getElementById('diagBox').innerHTML = sessvars.systemLink.toString() + "<br>" + sessvars.systemID.toString() + "<br>" + sessvars.planetID.toString();
         document.getElementById('backLink').href = sessvars.systemLink.toString();
         var widthPixel = document.getElementById('hexmapContainer').offsetWidth;
         var heightPixel = document.getElementById('hexmapContainer').offsetHeight;
         document.getElementById('hexDrawingCanvas').setAttribute('width', widthPixel);
         document.getElementById('hexDrawingCanvas').setAttribute('height', heightPixel);
+        document.getElementById('diagBox').innerHTML = sessvars.systemLink.toString() + "<br>" + sessvars.systemID.toString() + "<br>" + sessvars.planetID.toString();
 
-        /* strait line of hexes
-        for (i = 0; i < 1; i++) {
-            var canvasMeasure = document.getElementById('hexDrawingCanvas');
-            let angle = 2 * Math.PI / 6;
-            var x = canvasMeasure.width / 2;
-            var y = canvasMeasure.height / 2;
-            var r = 50;
-            var xSpacer = (r + (r*Math.cos(angle)))*i;
-            if (i%2 == 1) {
-                var ySpacer = r*Math.sin(angle);
-            } else {
-                var ySpacer = 0;
-            }
-            hexDraw(x+xSpacer, y+ySpacer, r);
-        }
-        */
-        
-        //spiral try
-        //loop for tiles
-        var layerCounter = 0;
-        var mHolder;
-        var nHolder;
-        for (i = 0; i < 15; i++) {
-            var canvasMeasure = document.getElementById('hexDrawingCanvas');
-            let angle = 2 * Math.PI / 6;
-            var centerX = canvasMeasure.width / 2;
-            var centerY = canvasMeasure.height / 2;
-            var r = 50;//needs to be a variable distance
-
-            if (i==0) {
-                hexdraw(centerX, centerY, r);
-            } else if (i%2 == 1) {
-                var xPos = 0;
-                var yPos = 0;
-                var m = xPos*r;
-                var n = yPos*r*Math.sin(angle);
-                for (j = 0; j < (i*6); j++) {
-                    if (i==1) {
-                        if (j==0) {
-                            xPos = 1;
-                            yPos = 1;
-                        } else if (j=1) {
-                            xPos = 0;
-                            yPos = 2;
-                        } else if (j=2) {
-                            xPos = -1;
-                            yPos = 1;
-                        } else if (j=3) {
-                            xPos = -1;
-                            yPos = 1;
-                        }
-                    }
-
-                    hexdraw((centerX));
-                }
-            } else if (i%2==0) {
-                for (j = 0; j < (i*6); j++) {
-
-                }
-            }
-            for (j=0; j<layerCounter; j)
-
-            if () {
-                    layerCounter += 1;
-            }
-            
-
-        }
-        
+        //input: amount of tiles on planet, side width (2.5 seems around the best to me)
+        hexMapBuild(91, 2.5);
     }
-    /*
-    function hexDraw() {
-        var str = "";
-        for (i = 0; i < 6; i++) {
-            var startX = 50;
-            var startY = 50;
-            var r = 50;
-            var a = 2 * Math.PI / 6;
-            var x = startX + r * Math.cos(a * i);
-            var y = startY + r * Math.sin(a * i);
-            str += Math.round(x*100)/100 + "," + Math.round(y*100)/100 + " ";
-        }
-        document.getElementById('hex').setAttribute("points", str)
-    }
-    */
-
-    function hexDraw(x, y, r) {
+    function rebuild() {
         var canvas = document.getElementById('hexDrawingCanvas');
         var ctx = canvas.getContext('2d');
-        // will eventually need to make x and y equal the center point, and somehow make r dynamic
-        let a = 2 * Math.PI / 6;
-        ctx.beginPath();
-        for (var i = 0; i < 6; i++) {
-            ctx.lineTo(x + r * Math.cos(a * i), y + r * Math.sin(a * i));
-        }
-        ctx.closePath();
-        ctx.stroke();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        hexMapBuild(91, 2.5);
     }
     </script>
 </head>
-<body onload="startFunction();">
+<body onload="startFunction();" onresize="rebuild()">
 
     <header class="pageHeader">
         <div class="flex-container">
@@ -167,11 +76,6 @@
 
             <div id="hexmapContainer"><!-- Overlayed tile hex map -->
                 <canvas id="hexDrawingCanvas"></canvas>
-                <!--
-                <svg width="100%" height="100%">
-                    <polygon id="hex" points="" style="fill:lime;stroke:purple;stroke-width:5;fill-rule:nonzero;"/>
-                </svg>
-                -->
             </div>
         </div>
         </div>
