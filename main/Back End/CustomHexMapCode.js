@@ -42,7 +42,6 @@ function hexMapBuild(tiles, percentLength) {
 
             if (i==0) {
                 hexDraw(centerX, centerY, r, percentLength);
-                hoverBuild(centerX, centerY, percentLength);
             } else if (layerCounter%2 == 1) {
                 var xPos = layerCounter;
                 var yPos = 1;
