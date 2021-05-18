@@ -4,6 +4,15 @@ class hoverCircle {
         this.y = yPoint;
         this.r = radius;
     }
+    getX() {
+        return this.x;
+    }
+    getY() {
+        return this.y;
+    }
+    getR() {
+        return this.r;
+    }
 }
 
 
@@ -33,6 +42,7 @@ function hexMapBuild(tiles, percentLength) {
 
             if (i==0) {
                 hexDraw(centerX, centerY, r, percentLength);
+                hoverBuild(centerX, centerY, percentLength);
             } else if (layerCounter%2 == 1) {
                 var xPos = layerCounter;
                 var yPos = 1;
@@ -43,31 +53,39 @@ function hexMapBuild(tiles, percentLength) {
                         var n = -1*yPos*r*Math.sin(angle);
                         if (j==0) {
                             hexDraw(centerX+m, centerY+n, r, percentLength);
+                            hoverBuild(centerX+m, centerY+n, percentLength);
                             yPos += 1;
                             xPos -= 1;
                         } else if (j==1) {
                             hexDraw(centerX+m, centerY+n, r, percentLength);
+                            hoverBuild(centerX+m, centerY+n, percentLength);
                             yPos -= 1;
                             xPos -= 1;
                         } else if (j==2) {
                             hexDraw(centerX+m, centerY+n, r, percentLength);
+                            hoverBuild(centerX+m, centerY+n, percentLength);
                             yPos -= 2;
                         } else if (j==3) {
                             hexDraw(centerX+m, centerY+n, r, percentLength);
+                            hoverBuild(centerX+m, centerY+n, percentLength);
                             yPos -= 1;
                             xPos += 1;
                         } else if (j==4) {
                             hexDraw(centerX+m, centerY+n, r, percentLength);
+                            hoverBuild(centerX+m, centerY+n, percentLength);
                             yPos += 1;
                             xPos += 1;
                         } else if (j==5) {
                             hexDraw(centerX+m, centerY+n, r, percentLength);
+                            hoverBuild(centerX+m, centerY+n, percentLength);
                         }
                         i += 1;
+                        console.log(i);
                         if (tileCount == i-layerCounter+1) {
                             iCounter = i;
                             break tileMax;
                         }
+                        
                     }
                 } else {
                     var xPos = layerCounter;
@@ -120,6 +138,7 @@ function hexMapBuild(tiles, percentLength) {
                             hexDraw(centerX+m, centerY+n, r, percentLength);
                         }
                         i += 1;
+                        console.log(i);
                         if (tileCount == i-layerCounter+1) {
                             iCounter = i;
                             break tileMax;
@@ -175,6 +194,7 @@ function hexMapBuild(tiles, percentLength) {
                         hexDraw(centerX+m, centerY+n, r, percentLength);
                     }
                     i += 1;
+
                     if (tileCount == i-layerCounter+1) {
                         iCounter = i;
                         break tileMax;
@@ -197,8 +217,8 @@ function hexMapBuild(tiles, percentLength) {
 }
 
 function hexDraw(x, y, r, percent) {
-    var canvas = document.getElementById('hexDrawingCanvas');
-    var ctx = canvas.getContext('2d');
+    var canvasDraw = document.getElementById('hexDrawingCanvas');
+    var ctx = canvasDraw.getContext('2d');
     let a = 2 * Math.PI / 6;
     ctx.beginPath();
     for (var i = 0; i < 6; i++) {
@@ -206,13 +226,13 @@ function hexDraw(x, y, r, percent) {
     }
     ctx.closePath();
     ctx.stroke();
-    hoverBuild(x, y, percent);
+    
 }
 
 function rebuild() {
-    var canvas = document.getElementById('hexDrawingCanvas');
-    var ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var canvasRebuild = document.getElementById('hexDrawingCanvas');
+    var ctx = canvasRebuild.getContext('2d');
+    ctx.clearRect(0, 0, canvasRebuild.width, canvasRebuild.height);
     hexMapBuild(91, 2.5);
 }
 
@@ -221,30 +241,32 @@ function hoverBuild(x, y, percentLength) {
     || document.documentElement.clientWidth
     || document.body.clientWidth;
     var wPerThousandth = w/1000;
-    var r = wPerThousandth*(percentLength*10)
+    var radiusHover = wPerThousandth*(percentLength*10)
     
-    var canvas = document.getElementById('hexDrawingCanvas');
-    var ctx = canvas.getContext('2d');
+    var canvasHover = document.getElementById('hexDrawingCanvas');
+    var ctxHover = canvasHover.getContext('2d');
 
     var deg60 = 2 * Math.PI / 3;
-    var circleRadius = r * Math.sin(deg60);
+    var circleRadius = radiusHover * Math.sin(deg60);
 
     var circles = [];
     for (i = 0; i < 1; i++) {
         var circleHolder = new hoverCircle(x, y, circleRadius);
         circles.push(circleHolder);
-        ctx.beginPath();
-        ctx.arc(circles[i].x, circles[i].y, circles[i].r, 0, 2*Math.PI);
-        ctx.fillStyle = "#cccccc";
-        ctx.fill();
+
+        ctxHover.beginPath();
+        ctxHover.arc(circles[i].getX(), circles[i].getY(), circles[i].getR(), 0, 2*Math.PI);
+        ctxHover.fillStyle = "#cccccc";
+        ctxHover.fill();
     }
-    //document.getElementById('hexDrawingCanvas').addEventListener("mousemove", mousemoveFunction());
+    //document.getElementById('hexDrawingCanvas').addEventListener("mousemove", mousemoveFunction(event));
 }
 
-function mousemoveFunction() {
+//WORK IN PROGRESS
+function mousemoveFunction(event) {
     var canvasWindow = this.getBoundingClientRect();
-    var mouseX = e.clientX - canvasWindow.left;
-    var mouseY = e.clientY - canvasWindow.top;
+    var mouseX = event.clientX - canvasWindow.left;
+    var mouseY = event.clientY - canvasWindow.top;
 
     for (i = 0; i < 1; i++) {
         ctx.beginPath();
