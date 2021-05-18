@@ -1,20 +1,10 @@
-function hexBuild() {
-    for (i = 0; i < 6; i++) {
-        var startX = 50;
-        var startY = 50;
-        var r = 50;
-        var a = 2 * Math.pi / 6;
-        var x = startX + r * Math.cos(a * i);
-        var y = startY + r * Math.sin(a * i);
-        str += x + "," + y + " ";
+class hoverCircle {
+    constructor(xPoint, yPoint, radius) {
+        this.x = xPoint;
+        this.y = yPoint;
+        this.r = radius;
     }
 }
-
-class hex {
-
-}
-
-
 
 
 
@@ -42,7 +32,7 @@ function hexMapBuild(tiles, percentLength) {
             var centerY = canvasMeasure.height / 2;
 
             if (i==0) {
-                hexDraw(centerX, centerY, r);
+                hexDraw(centerX, centerY, r, percentLength);
             } else if (layerCounter%2 == 1) {
                 var xPos = layerCounter;
                 var yPos = 1;
@@ -52,26 +42,26 @@ function hexMapBuild(tiles, percentLength) {
                         var m = xPos*(3*r*Math.cos(angle));
                         var n = -1*yPos*r*Math.sin(angle);
                         if (j==0) {
-                            hexDraw(centerX+m, centerY+n, r);
+                            hexDraw(centerX+m, centerY+n, r, percentLength);
                             yPos += 1;
                             xPos -= 1;
                         } else if (j==1) {
-                            hexDraw(centerX+m, centerY+n, r);
+                            hexDraw(centerX+m, centerY+n, r, percentLength);
                             yPos -= 1;
                             xPos -= 1;
                         } else if (j==2) {
-                            hexDraw(centerX+m, centerY+n, r);
+                            hexDraw(centerX+m, centerY+n, r, percentLength);
                             yPos -= 2;
                         } else if (j==3) {
-                            hexDraw(centerX+m, centerY+n, r);
+                            hexDraw(centerX+m, centerY+n, r, percentLength);
                             yPos -= 1;
                             xPos += 1;
                         } else if (j==4) {
-                            hexDraw(centerX+m, centerY+n, r);
+                            hexDraw(centerX+m, centerY+n, r, percentLength);
                             yPos += 1;
                             xPos += 1;
                         } else if (j==5) {
-                            hexDraw(centerX+m, centerY+n, r);
+                            hexDraw(centerX+m, centerY+n, r, percentLength);
                         }
                         i += 1;
                         if (tileCount == i-layerCounter+1) {
@@ -93,41 +83,41 @@ function hexMapBuild(tiles, percentLength) {
                             xPos -= 1;
                             var m = xPos*(3*r*Math.cos(angle));
                             var n = -1*yPos*r*Math.sin(angle);
-                            hexDraw(centerX+m, centerY+n, r);
+                            hexDraw(centerX+m, centerY+n, r, percentLength);
                         } else if (j >= startLoopNum && j <= layerCounter) {
                             yPos += 1;
                             xPos -= 1;
                             var m = xPos*(3*r*Math.cos(angle));
                             var n = -1*yPos*r*Math.sin(angle);
-                            hexDraw(centerX+m, centerY+n, r);
+                            hexDraw(centerX+m, centerY+n, r, percentLength);
                         } else if (j > layerCounter && j <= layerCounter*2) {
                             yPos -= 1;
                             xPos -= 1;
                             var m = xPos*(3*r*Math.cos(angle));
                             var n = -1*yPos*r*Math.sin(angle);
-                            hexDraw(centerX+m, centerY+n, r);
+                            hexDraw(centerX+m, centerY+n, r, percentLength);
                         } else if (j > layerCounter*2 && j <= layerCounter*3) {
                             yPos -= 2;
                             var m = xPos*(3*r*Math.cos(angle));
                             var n = -1*yPos*r*Math.sin(angle);
-                            hexDraw(centerX+m, centerY+n, r);
+                            hexDraw(centerX+m, centerY+n, r, percentLength);
                         } else if (j > layerCounter*3 && j <= layerCounter*4) {
                             yPos -= 1;
                             xPos += 1;
                             var m = xPos*(3*r*Math.cos(angle));
                             var n = -1*yPos*r*Math.sin(angle);
-                            hexDraw(centerX+m, centerY+n, r);
+                            hexDraw(centerX+m, centerY+n, r, percentLength);
                         } else if (j > layerCounter*4 && j <= layerCounter*5) {
                             yPos += 1;
                             xPos += 1;
                             var m = xPos*(3*r*Math.cos(angle));
                             var n = -1*yPos*r*Math.sin(angle);
-                            hexDraw(centerX+m, centerY+n, r);
+                            hexDraw(centerX+m, centerY+n, r, percentLength);
                         }  else if (j > layerCounter*5 && j <= layerCounter*6) {
                             yPos += 2;
                             var m = xPos*(3*r*Math.cos(angle));
                             var n = -1*yPos*r*Math.sin(angle);
-                            hexDraw(centerX+m, centerY+n, r);
+                            hexDraw(centerX+m, centerY+n, r, percentLength);
                         }
                         i += 1;
                         if (tileCount == i-layerCounter+1) {
@@ -148,41 +138,41 @@ function hexMapBuild(tiles, percentLength) {
                         xPos -= 1;
                         var m = xPos*(3*r*Math.cos(angle));
                         var n = -1*yPos*r*Math.sin(angle);
-                        hexDraw(centerX+m, centerY+n, r);
+                        hexDraw(centerX+m, centerY+n, r, percentLength);
                     } else if (j >= startLoopNum && j < layerCounter) {
                         yPos += 1;
                         xPos -= 1;
                         var m = xPos*(3*r*Math.cos(angle));
                         var n = -1*yPos*r*Math.sin(angle);
-                        hexDraw(centerX+m, centerY+n, r);
+                        hexDraw(centerX+m, centerY+n, r, percentLength);
                     } else if (j >= layerCounter && j < layerCounter*2) {
                         yPos -= 1;
                         xPos -= 1;
                         var m = xPos*(3*r*Math.cos(angle));
                         var n = -1*yPos*r*Math.sin(angle);
-                        hexDraw(centerX+m, centerY+n, r);
+                        hexDraw(centerX+m, centerY+n, r, percentLength);
                     } else if (j >= layerCounter*2 && j < layerCounter*3) {
                         yPos -= 2;
                         var m = xPos*(3*r*Math.cos(angle));
                         var n = -1*yPos*r*Math.sin(angle);
-                        hexDraw(centerX+m, centerY+n, r);
+                        hexDraw(centerX+m, centerY+n, r, percentLength);
                     } else if (j >= layerCounter*3 && j < layerCounter*4) {
                         yPos -= 1;
                         xPos += 1;
                         var m = xPos*(3*r*Math.cos(angle));
                         var n = -1*yPos*r*Math.sin(angle);
-                        hexDraw(centerX+m, centerY+n, r);
+                        hexDraw(centerX+m, centerY+n, r, percentLength);
                     } else if (j >= layerCounter*4 && j < layerCounter*5) {
                         yPos += 1;
                         xPos += 1;
                         var m = xPos*(3*r*Math.cos(angle));
                         var n = -1*yPos*r*Math.sin(angle);
-                        hexDraw(centerX+m, centerY+n, r);
+                        hexDraw(centerX+m, centerY+n, r, percentLength);
                     }  else if (j >= layerCounter*5 && j < layerCounter*6) {
                         yPos += 2;
                         var m = xPos*(3*r*Math.cos(angle));
                         var n = -1*yPos*r*Math.sin(angle);
-                        hexDraw(centerX+m, centerY+n, r);
+                        hexDraw(centerX+m, centerY+n, r, percentLength);
                     }
                     i += 1;
                     if (tileCount == i-layerCounter+1) {
@@ -198,9 +188,15 @@ function hexMapBuild(tiles, percentLength) {
             }
         }
     }
+    /*
+    ctx.beginPath();
+    ctx.arc(canvas.width/2, canvas.height/2, circleRadius, 0, 2*Math.PI)
+    ctx.fillStyle = "white";
+    ctx.fill();
+    */
 }
 
-function hexDraw(x, y, r) {
+function hexDraw(x, y, r, percent) {
     var canvas = document.getElementById('hexDrawingCanvas');
     var ctx = canvas.getContext('2d');
     let a = 2 * Math.PI / 6;
@@ -210,7 +206,91 @@ function hexDraw(x, y, r) {
     }
     ctx.closePath();
     ctx.stroke();
+    hoverBuild(x, y, percent);
 }
+
+function rebuild() {
+    var canvas = document.getElementById('hexDrawingCanvas');
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    hexMapBuild(91, 2.5);
+}
+
+function hoverBuild(x, y, percentLength) {
+    var w = window.innerWidth
+    || document.documentElement.clientWidth
+    || document.body.clientWidth;
+    var wPerThousandth = w/1000;
+    var r = wPerThousandth*(percentLength*10)
+    
+    var canvas = document.getElementById('hexDrawingCanvas');
+    var ctx = canvas.getContext('2d');
+
+    var deg60 = 2 * Math.PI / 3;
+    var circleRadius = r * Math.sin(deg60);
+
+    var circles = [];
+    for (i = 0; i < 1; i++) {
+        var circleHolder = new hoverCircle(x, y, circleRadius);
+        circles.push(circleHolder);
+        ctx.beginPath();
+        ctx.arc(circles[i].x, circles[i].y, circles[i].r, 0, 2*Math.PI);
+        ctx.fillStyle = "#cccccc";
+        ctx.fill();
+    }
+    //document.getElementById('hexDrawingCanvas').addEventListener("mousemove", mousemoveFunction());
+}
+
+function mousemoveFunction() {
+    var canvasWindow = this.getBoundingClientRect();
+    var mouseX = e.clientX - canvasWindow.left;
+    var mouseY = e.clientY - canvasWindow.top;
+
+    for (i = 0; i < 1; i++) {
+        ctx.beginPath();
+        ctx.arc(circles[i].x, circles[i].y, circles[i].r, 0, 2*Math.PI);
+        ctx.fillStyle = ctx.isPointInPath(mouseX, mouseY) ? "black" : "white";
+        ctx.fill();
+    }
+
+}
+
+/* Example
+
+var canvas = document.querySelector("canvas"),
+    ctx = canvas.getContext("2d"),                      <----- Creates the shapes
+    rects = [
+        {x: 10, y: 10, w: 200, h: 50},
+        {x: 50, y: 70, w: 150, h: 30}    // etc.
+    ], i = 0, r;
+
+// render initial rects.
+while(r = rects[i++]) ctx.rect(r.x, r.y, r.w, r.h);
+ctx.fillStyle = "blue"; ctx.fill();                      <----- renders them onto the screen on boot
+
+canvas.onmousemove = function(e) {
+
+  // important: correct mouse position:
+  var rect = this.getBoundingClientRect(),
+      x = e.clientX - rect.left,                      <----- gets mouse posistion each time it is moved
+      y = e.clientY - rect.top,
+      i = 0, r;
+  
+  ctx.clearRect(0, 0, canvas.width, canvas.height);        <----- clears the drawing board of initial shapes every time the mouse moves
+  
+  while(r = rects[i++]) {
+    // add a single rect to path:
+    ctx.beginPath();                                       <----- opens a new path for each object in the array each time 
+    ctx.rect(r.x, r.y, r.w, r.h);                                 the mouse is moved after clearing
+    
+    // check if we hover it, fill red, if not fill it blue
+    ctx.fillStyle = ctx.isPointInPath(x, y) ? "red" : "blue";               <----- checks the mouse position against the 
+    ctx.fill();                                                                    object array and changes the color based off of that
+  }
+
+};
+
+*/
 
 /*
 function hexDraw(x, y, r) {

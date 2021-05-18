@@ -19,12 +19,6 @@
         //input: amount of tiles on planet, side width (2.5 seems around the best to me)
         hexMapBuild(91, 2.5);
     }
-    function rebuild() {
-        var canvas = document.getElementById('hexDrawingCanvas');
-        var ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        hexMapBuild(91, 2.5);
-    }
     </script>
 </head>
 <body onload="startFunction();" onresize="rebuild()">
