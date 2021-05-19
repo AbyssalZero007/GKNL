@@ -21,7 +21,7 @@
     }
     </script>
 </head>
-<body onload="startFunction();" onresize="rebuild()">
+<body onload="startFunction();" onresize="rebuild()" id="body">
 
     <header class="pageHeader">
         <div class="flex-container">
@@ -69,7 +69,7 @@
             <img src="..\Images\Background_Plate.png" alt="TileBackground" style="object-fit: contain; width: 100%; ">
 
             <div id="hexmapContainer"><!-- Overlayed tile hex map -->
-                <canvas id="hexDrawingCanvas"></canvas>
+                <canvas id="hexDrawingCanvas" onmousemove="mousemoveFunction(event)"></canvas>
             </div>
         </div>
         </div>

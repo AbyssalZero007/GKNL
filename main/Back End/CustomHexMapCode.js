@@ -13,9 +13,12 @@ class hoverCircle {
     getR() {
         return this.r;
     }
+    toString() {
+        return this.x + ", " + this.y + ", " + this.r;
+    }
 }
 
-
+var hoverAreas = [];
 
 // Functions:
 
@@ -42,6 +45,7 @@ function hexMapBuild(tiles, percentLength) {
 
             if (i==0) {
                 hexDraw(centerX, centerY, r, percentLength);
+                hoverBuild(centerX, centerY, percentLength);
             } else if (layerCounter%2 == 1) {
                 var xPos = layerCounter;
                 var yPos = 1;
@@ -78,8 +82,9 @@ function hexMapBuild(tiles, percentLength) {
                             hexDraw(centerX+m, centerY+n, r, percentLength);
                             hoverBuild(centerX+m, centerY+n, percentLength);
                         }
+                        //console.log(m, n);
                         i += 1;
-                        console.log(i);
+                        //console.log(i);
                         if (tileCount == i-layerCounter+1) {
                             iCounter = i;
                             break tileMax;
@@ -136,8 +141,10 @@ function hexMapBuild(tiles, percentLength) {
                             var n = -1*yPos*r*Math.sin(angle);
                             hexDraw(centerX+m, centerY+n, r, percentLength);
                         }
+                        hoverBuild(centerX+m, centerY+n, percentLength);
+                        //console.log(m, n);
                         i += 1;
-                        console.log(i);
+                        //console.log(i);
                         if (tileCount == i-layerCounter+1) {
                             iCounter = i;
                             break tileMax;
@@ -192,8 +199,9 @@ function hexMapBuild(tiles, percentLength) {
                         var n = -1*yPos*r*Math.sin(angle);
                         hexDraw(centerX+m, centerY+n, r, percentLength);
                     }
+                    hoverBuild(centerX+m, centerY+n, percentLength);
                     i += 1;
-
+                    //console.log(m, n);
                     if (tileCount == i-layerCounter+1) {
                         iCounter = i;
                         break tileMax;
@@ -225,9 +233,10 @@ function hexDraw(x, y, r, percent) {
     }
     ctx.closePath();
     ctx.stroke();
-    
+    //hoverBuild(x, y, percent);
 }
 
+//dosent work for the hover areas, need to figured out why
 function rebuild() {
     var canvasRebuild = document.getElementById('hexDrawingCanvas');
     var ctx = canvasRebuild.getContext('2d');
@@ -236,6 +245,7 @@ function rebuild() {
 }
 
 function hoverBuild(x, y, percentLength) {
+    
     var w = window.innerWidth
     || document.documentElement.clientWidth
     || document.body.clientWidth;
@@ -248,32 +258,46 @@ function hoverBuild(x, y, percentLength) {
     var deg60 = 2 * Math.PI / 3;
     var circleRadius = radiusHover * Math.sin(deg60);
 
-    var circles = [];
-    for (i = 0; i < 1; i++) {
-        var circleHolder = new hoverCircle(x, y, circleRadius);
-        circles.push(circleHolder);
+    var circle = new hoverCircle(x, y, circleRadius)
+    hoverAreas.push(circle);
 
-        ctxHover.beginPath();
-        ctxHover.arc(circles[i].getX(), circles[i].getY(), circles[i].getR(), 0, 2*Math.PI);
-        ctxHover.fillStyle = "#cccccc";
-        ctxHover.fill();
-    }
-    //document.getElementById('hexDrawingCanvas').addEventListener("mousemove", mousemoveFunction(event));
+    ctxHover.beginPath();
+    ctxHover.globalAlpha = 0.0;
+    ctxHover.arc(x, y, circleRadius, 0, 2*Math.PI);
+    ctxHover.fillStyle = "white";
+    ctxHover.fill()
+    ctxHover.globalAlpha = 1.0;
+    ctxHover.closePath();
+
+    
 }
 
 //WORK IN PROGRESS
+
 function mousemoveFunction(event) {
-    var canvasWindow = this.getBoundingClientRect();
-    var mouseX = event.clientX - canvasWindow.left;
-    var mouseY = event.clientY - canvasWindow.top;
+    var canvasHover = document.getElementById('hexDrawingCanvas');
+    var ctxHover = canvasHover.getContext('2d');
+    var screenW = document.getElementById('body').offsetWidth;
+    var canvasW = document.getElementById('hexmapContainer').offsetWidth;
+    var screenH = document.getElementById('body').offsetHeight;
+    var canvasH = document.getElementById('hexmapContainer').offsetHeight;
+    var mouseX = event.pageX - (screenW - canvasW);
+    var mouseY = event.pageY - (screenH - canvasH);
 
-    for (i = 0; i < 1; i++) {
-        ctx.beginPath();
-        ctx.arc(circles[i].x, circles[i].y, circles[i].r, 0, 2*Math.PI);
-        ctx.fillStyle = ctx.isPointInPath(mouseX, mouseY) ? "black" : "white";
-        ctx.fill();
+    for (i = 0; i < hoverAreas.length; i++) {
+        //console.log(hoverAreas[i].toString());
+        ctxHover.beginPath();
+        ctxHover.arc(hoverAreas[i].getX(), hoverAreas[i].getY(), hoverAreas[i].getR(), 0, 2*Math.PI);
+        if (ctxHover.isPointInPath(mouseX, mouseY)) {
+            ctxHover.globalAlpha = 1.0;
+            ctxHover.fillStyle = "green";
+        } else {
+            ctxHover.globalAlpha = 1.0;
+            ctxHover.fillStyle = "white";
+        }
+        ctxHover.fill();
     }
-
+    
 }
 
 /* Example
