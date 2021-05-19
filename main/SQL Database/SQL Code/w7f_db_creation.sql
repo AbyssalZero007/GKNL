@@ -752,6 +752,26 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
+-- Data for table `w7f_player`.`roles`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `w7f_player`;
+INSERT INTO `w7f_player`.`roles` (`roleid`, `name`, `desc`) VALUES (4310, 'Player', '');
+INSERT INTO `w7f_player`.`roles` (`roleid`, `name`, `desc`) VALUES (7600, 'The Greater Good Captain', '');
+INSERT INTO `w7f_player`.`roles` (`roleid`, `name`, `desc`) VALUES (2582, 'Orkz Captain', '');
+INSERT INTO `w7f_player`.`roles` (`roleid`, `name`, `desc`) VALUES (1464, 'Necron Captain', '');
+INSERT INTO `w7f_player`.`roles` (`roleid`, `name`, `desc`) VALUES (2198, 'Imperium Indomitus Captain', '');
+INSERT INTO `w7f_player`.`roles` (`roleid`, `name`, `desc`) VALUES (3051, 'Imperialis Verum Captain', '');
+INSERT INTO `w7f_player`.`roles` (`roleid`, `name`, `desc`) VALUES (8988, 'Chaos Captain', '');
+INSERT INTO `w7f_player`.`roles` (`roleid`, `name`, `desc`) VALUES (1043, 'Eldar Captain', '');
+INSERT INTO `w7f_player`.`roles` (`roleid`, `name`, `desc`) VALUES (7537, 'Tyranid Captain', '');
+INSERT INTO `w7f_player`.`roles` (`roleid`, `name`, `desc`) VALUES (8712, 'Game Master', '');
+INSERT INTO `w7f_player`.`roles` (`roleid`, `name`, `desc`) VALUES (1026, 'Admin', '');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `w7f_player`.`faction`
 -- -----------------------------------------------------
 START TRANSACTION;
