@@ -23,13 +23,13 @@
 </head>
 <body onload="startFunction();" onresize="rebuild()" id="body">
 
-    <header class="pageHeader">
+    <header class="pageHeader" id="pageHead">
         <div class="flex-container">
             <div class="flex-title">
                 <h1 id="pageHead" class="pageTitle"></h1>
             </div>
         </div>
-        <div id="diagBox" style="position: fixed; top: 0; left: 0; width: 10%; background-color: gray; color: white; font-size: 12 pt;">
+        <div id="diagBox" style="position: fixed; top: 0; right: 0; width: 10%; background-color: gray; color: white; font-size: 12 pt; z-index: 10;">
             <p id="diagText">test</p>
         </div>
     </header>
@@ -61,20 +61,95 @@
         Side Bar, floated left, taking up the other 25% containing a table of what buildings are on the planet
         Bottem Bar, containing Lore about the planet and planetary traits pulled from DB
     -->
+    <img src="..\Images\Background_Plate.png" alt="TileBackground" id="tileBackground">
     <div class="flexTileMap">
         <div id="infoBar">
-            <h3>Testetstetsidusfhsdoihf'pijh</h3>
+            <div style="position: sticky; top: 0.5vw;">
+                <div class="tileStats">
+                    <h3 style="text-decoration: underline;">Tile <span id="infoBarTitleMutable">test</span>:</h3>
+                    <p class="tileDataDisplay"><u>Controlling Faction:</u> <span class="tileDataDisplayMutable">test</span></p>
+                    <p class="tileDataDisplay"><u>Fotifications:</u> <span class="tileDataDisplayMutable">test</span></p>
+                    <p class="tileDataDisplay"><u>Buildings:</u> <span class="tileDataDisplayMutable">test</span></p>
+                </div>
+                <div style="border-top-style: solid; position: relative; margin-bottom: 2vw;">
+                    <h3 style="text-decoration: underline;">Planet Name Buildings:</h3>
+                    <div class="factionlist">
+                        <h3>Faction:</h3>
+                        <div class="factionlist-content">
+                            <ul>
+                                <li class="factionlist-list-item"><a class="factionBuildinglink" href="">Orks</a></li>
+                                <li class="factionlist-list-item"><a class="factionBuildinglink" href="">Tyranids</a></li>
+                                <li class="factionlist-list-item"><a class="factionBuildinglink" href="">Chaos</a></li>
+                                <li class="factionlist-list-item"><a class="factionBuildinglink" href="">Imperium Indomitus</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <table>
+                        <tr id="barracks">
+                            <td class="buildingDisplay"><u>Barracks:</u></td>
+                            <td class="buildingDisplayMutable">test</td>
+                        </tr>
+                        <tr id="intHub">
+                            <td class="buildingDisplay"><u>Intelligence Hub:</u></td>
+                            <td class="buildingDisplayMutable">test</td>
+                        </tr>
+                        <tr id="outpost">
+                            <td class="buildingDisplay"><u>Outpost:</u></td>
+                            <td class="buildingDisplayMutable">test</td>
+                        </tr>
+                        <tr id="manufactorum">
+                            <td class="buildingDisplay"><u>Manufactorum:</u></td>
+                            <td class="buildingDisplayMutable">test</td>
+                        </tr>
+                        <tr id="trenches">
+                            <td class="buildingDisplay"><u>Trench Network:</u></td>
+                            <td class="buildingDisplayMutable">test</td>
+                        </tr>
+                        <tr id="airfield">
+                            <td class="buildingDisplay"><u>Airfield:</u></td>
+                            <td class="buildingDisplayMutable">test</td>
+                        </tr>
+                        <tr id="spaceport">
+                            <td class="buildingDisplay"><u>Spaceport:</u></td>
+                            <td class="buildingDisplayMutable">test</td>
+                        </tr>
+                        <tr id="lodgings">
+                            <td class="buildingDisplay"><u>Personal Lodgings:</u></td>
+                            <td class="buildingDisplayMutable">test</td>
+                        </tr>
+                        <tr id="monument">
+                            <td class="buildingDisplay"><u>Monument:</u></td>
+                            <td class="buildingDisplayMutable">test</td>
+                        </tr>
+                        <tr id="commRelay">
+                            <td class="buildingDisplay"><u>Communications Relay:</u></td>
+                            <td class="buildingDisplayMutable">test</td>
+                        </tr>
+                        <tr id="mine">
+                            <td class="buildingDisplay"><u>Mines:</u></td>
+                            <td class="buildingDisplayMutable">test</td>
+                        </tr>
+                        <tr id="generator">
+                            <td class="buildingDisplay"><u>Exotic Generator:</u></td>
+                            <td class="buildingDisplayMutable">test</td>
+                        </tr>
+                        <tr id="none">
+                            <td colspan="2" class="buildingDisplay"><u>None</u></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
         <div id="tileMap">
-            <img src="..\Images\Background_Plate.png" alt="TileBackground" style="object-fit: contain; width: 100%; ">
+            <img src="..\Images\Background_Plate.png" alt="TileBackground" style="object-fit: contain; width: 100%; visibility: hidden;">
 
             <div id="hexmapContainer"><!-- Overlayed tile hex map -->
                 <canvas id="hexDrawingCanvas" onmousemove="mousemoveFunction(event)"></canvas>
             </div>
         </div>
-        </div>
-        <div id="loreBar" style="background-color: white; text-align: center;">
-            <h3>Testetstetsidusfhsdoihf'pijh</h3>
+    </div>
+    <div id="loreBar">
+        <h3>Lore:</h3>
     </div>
     </content>
 

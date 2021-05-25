@@ -232,6 +232,7 @@ function hexDraw(x, y, r, percent) {
         ctx.lineTo(x + r * Math.cos(a * i), y + r * Math.sin(a * i));
     }
     ctx.closePath();
+    ctx.strokeStyle = "white";
     ctx.stroke();
     //hoverBuild(x, y, percent);
 }
@@ -267,36 +268,43 @@ function hoverBuild(x, y, percentLength) {
     ctxHover.fillStyle = "white";
     ctxHover.fill()
     ctxHover.globalAlpha = 1.0;
+    ctxHover.font = "16px Arial";
+    ctxHover.fillText(hoverAreas.length, hoverAreas[hoverAreas.length-1].getX()-8, hoverAreas[hoverAreas.length-1].getY()+8);
     ctxHover.closePath();
 
     
 }
 
-//WORK IN PROGRESS
-
 function mousemoveFunction(event) {
     var canvasHover = document.getElementById('hexDrawingCanvas');
     var ctxHover = canvasHover.getContext('2d');
-    var screenW = document.getElementById('body').offsetWidth;
-    var canvasW = document.getElementById('hexmapContainer').offsetWidth;
-    var screenH = document.getElementById('body').offsetHeight;
-    var canvasH = document.getElementById('hexmapContainer').offsetHeight;
-    var mouseX = event.pageX - (screenW - canvasW);
-    var mouseY = event.pageY - (screenH - canvasH);
+    var rect = document.getElementById('hexDrawingCanvas').getBoundingClientRect();
+    var mouseX = event.clientX - rect.left;
+    var mouseY = event.clientY - rect.top;
 
     for (i = 0; i < hoverAreas.length; i++) {
         //console.log(hoverAreas[i].toString());
         ctxHover.beginPath();
         ctxHover.arc(hoverAreas[i].getX(), hoverAreas[i].getY(), hoverAreas[i].getR(), 0, 2*Math.PI);
+        
         if (ctxHover.isPointInPath(mouseX, mouseY)) {
-            ctxHover.globalAlpha = 1.0;
-            ctxHover.fillStyle = "green";
+            //ctxHover.globalAlpha = 1.0;
+            //ctxHover.fillStyle = "green";
+            hoverActionOn(i+1);
         } else {
-            ctxHover.globalAlpha = 1.0;
-            ctxHover.fillStyle = "white";
+            //ctxHover.globalAlpha = 1.0;
+            //ctxHover.fillStyle = "white";
         }
-        ctxHover.fill();
+        //ctxHover.fill();
     }
+    
+}
+
+function hoverActionOn(text) {
+    document.getElementById('infoBarTitleMutable').innerHTML = text;
+}
+
+function hoverActionOff() {
     
 }
 
