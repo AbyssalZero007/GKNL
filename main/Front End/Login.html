@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <title>Glory Knows No Limit</title>
+    <script type = "text/javascript" src="../Back End/sessvars.js"></script>
+    <script type = "text/javascript" src="../Back End/PlanetCreator.js"></script>
+    <script type = "text/javascript" src="../Back End/CustomHexMapCode.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        function login() {
+            sessvars.username = document.getElementById('userName').value;
+            sessvars.faction = 0;//this would be a pull from the database based off of the username
+            document.getElementById('pageHead').innerHTML = sessvars.username;
+            document.getElementById('statusMessage').style.visibility = "visible";
+        }
+    </script>
+</head>
+<body style="overflow: hidden;">
+
+    <header class="pageHeader">
+        <div class="flex-container">
+            <div class="flex-title">
+                <h1 id="pageHead" class="pageTitle">Login</h1>
+            </div>
+        </div>
+        <div id="diagBox" style="position: fixed; top: 0; left: 0; width: 10%; background-color: gray; color: white; font-size: 12 pt;">
+            <p id="diagText">test</p>
+        </div>
+    </header>
+
+    <nav style="border-bottom-style: solid;">
+        <ul class="navList">
+            <li class="navItem">
+                <h2><a class="navLink" href="">User</a></h2>
+            </li>
+            <li class="navItem">
+                <h2><a class="navLink" href="">Faction</a></h2>
+            </li>
+            <li class="navItem">
+                <h2><a class="navLink" href="HomePage.html">Sector Map</a></h2>
+            </li>
+            <li class="navItem">
+                <h2><a class="navLink" href="">Logout</a></h2>
+            </li>
+        </ul>
+    </nav>
+
+    <div style="position: relative; height: 100vh;">
+        <img src="..\Images\Background_Plate.png" alt="TileBackground" style="width: 100%; position: absolute; top: 0; z-index: -1; margin-top: -6vw;">
+        <div class="login">
+            <span>>User Name:</span><br>
+            <input class="loginInput" type="text" id="userName"><br><br>
+            <span>>Password:</span><br>
+            <input class="loginInput" type="text" id="password"><br><br>
+            <span class="loginButton" onclick="login()">>>Login</span>
+            <h3 id="statusMessage" style="margin-top: 0.5vw; padding-bottom: 0.5vw; font-size: 1.25vw; visibility: hidden;">Success!</h3>
+        </div>
+    </div>
+
+    <!--
+    <footer>
+    </footer>
+    -->
+
+</body>
+</html>

@@ -17,7 +17,7 @@
         document.getElementById('diagBox').innerHTML = sessvars.systemLink.toString() + "<br>" + sessvars.systemID.toString() + "<br>" + sessvars.planetID.toString();
 
         //input: amount of tiles on planet, side width (2.5 seems around the best to me)
-        hexMapBuild(91, 2.5);
+        hexMapBuild(91, 2.25);
     }
     </script>
 </head>
@@ -46,6 +46,9 @@
             <h2><a class="navLink" href="HomePage.html">Sector Map</a></h2>
         </li>
         <li class="navItem">
+            <h2><a class="navLink" href="Login.html">Login</a></h2>
+        </li>
+        <li class="navItem">
             <h2><a class="navLink" href="">Logout</a></h2>
         </li>
         <li>
@@ -55,23 +58,17 @@
     </nav>
 
     <content>
-    <!--
-    Current Plan:
-        Planet Image taking up 75% of width floated to the right of the screen. this image will be overlayed with the hex grid (still need to figure out)
-        Side Bar, floated left, taking up the other 25% containing a table of what buildings are on the planet
-        Bottem Bar, containing Lore about the planet and planetary traits pulled from DB
-    -->
     <img src="..\Images\Background_Plate.png" alt="TileBackground" id="tileBackground">
     <div class="flexTileMap">
         <div id="infoBar">
-            <div style="position: sticky; top: 0.5vw;">
+            <div style="position: sticky; top: 0.5vw; padding-bottom: 1vw;">
                 <div class="tileStats">
                     <h3 style="text-decoration: underline;">Tile <span id="infoBarTitleMutable">test</span>:</h3>
                     <p class="tileDataDisplay"><u>Controlling Faction:</u> <span class="tileDataDisplayMutable">test</span></p>
                     <p class="tileDataDisplay"><u>Fotifications:</u> <span class="tileDataDisplayMutable">test</span></p>
                     <p class="tileDataDisplay"><u>Buildings:</u> <span class="tileDataDisplayMutable">test</span></p>
                 </div>
-                <div style="border-top-style: solid; position: relative; margin-bottom: 2vw;">
+                <div style="border-top-style: solid; position: relative;">
                     <h3 style="text-decoration: underline;">Planet Name Buildings:</h3>
                     <div class="factionlist">
                         <h3>Faction:</h3>
