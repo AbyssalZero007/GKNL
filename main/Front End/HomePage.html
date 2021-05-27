@@ -6,7 +6,13 @@
     <script type = "text/javascript" src="../Back End/sessvars.js"></script>
     <script type = "text/javascript" src="../Back End/PlanetCreator.js"></script>
     <script type = "text/javascript" src="../Back End/Placeholder (merge with Planet Creator when it is done).js"></script>
+    <script type="text/javascript" src="/pico.js"></script>
+    <script type="text/javascript" src="/example.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        var example = pico.importModule('example');
+        example.hello("Fergal").then(function(response){document.getElementById('diagText').innerHTML = response;});
+    </script>
 </head>
 <body>
 
@@ -18,6 +24,7 @@
         </div>
         <div id="diagBox" style="position: fixed; top: 0; left: 0; width: 10%; background-color: gray; color: white; font-size: 12 pt;">
             <p id="diagText">test</p>
+            <a href="../test.html">Tester Python</a>
         </div>
     </header>
 
