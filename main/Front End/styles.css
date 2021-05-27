@@ -55,55 +55,163 @@ body {
 
 /* tile layers (WORK IN PROGRESS) */
 /* Note to self: Tenebris is the largest single planet with 91 tiles */
-.factionLayer {
-    z-index: 1;
-}
-.tileTemplateLayer {
+.tileInfo {
     display: none;
-    z-index: 2;
-    align-self: center;
-    position: relative;
+    z-index: 3;
+    position: absolute;
     height: 40px;
     width: 40px;
+    background-color: black;
 }
-.buildingsLayer {
-    z-index: 3;
+
+
+.flexTileMap {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border-top-style: solid;
+    border-color: white;
+    padding-top: 2vw;
 }
-.toolTipLayer {
-    z-index: 4;
-    position: fixed;
-    display: none;
+#tileMap {
+    flex-basis: 75%;
+    width: 100%;
+    height: auto;
+    position: relative;
 }
+#infoBar {
+    flex-basis: 25%;
+    color: white;
+    text-align: center;
+    border-right-style: solid;
+}
+.tileDataDisplay {
+    text-align: left;
+    padding-left: 1vw;
+}
+.tileDataDisplayMutable {
+    
+}
+.tileStats {
+    top: 0.5vw;
+}
+#positioning {
+    position: relative;
+}
+#map {
+    background-color: white;
+    position: relative;
+    z-index: 1;
+}
+.hexmapPosition {
+    position: absolute;
+    color: white;
+    z-index: 2;
+}
+table {
+    border-style: solid;
+    border-collapse: collapse;
+    margin-left: 1vw;
+    padding: 0;
+    width: 90%;
+    text-align: left;
+}
+td {
+    border-style: solid;
+    padding: 0.4vw 0.75vw;
+}
+#none {
+    text-align: center;
+}
+.buildingDisplay {
+}
+
+.login {
+    text-align: center;
+    color: white;
+    margin-top: 5vw;
+    padding-top: 2vw;
+    background-image: url(../Images/DigitalSkull.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.loginButton {
+    color: white;
+    text-decoration: none;
+    background-image: url(../Images/Buttonless_plate.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 0.7vw 4vw;
+    font-size: 1vw;
+}
+.loginButton:hover {
+    color: rgb(57, 255, 20);
+    cursor: pointer;
+}
+.loginInput {
+    color: rgb(57, 255, 20);
+    background-color: rgb(50, 50, 56);
+}
+
+#hexmapContainer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: white;
+    z-index: 2;
+}
+#hexDrawingCanvas {
+    width: 100%;
+    height: auto;
+}
+#tileBackground {
+    object-fit: contain;
+    width: 99.5%;
+    position: absolute;
+    z-index: -1;
+}
+#infoBar {
+    position: relative;
+    left: 1%;
+}
+#loreBar {
+    text-align: center;
+    color: white;
+    border-top-style: solid;
+    width: 98%;
+    margin-left: 1%;
+}
+
+
 
 
 /* dropdown */
-.systemlist {
+.factionlist {
     position: static;
-    color: #aab1b5;
-    padding-bottom: 3px;
+    text-decoration: underline;
 }
-.systemlist-content {
+.factionlist-content {
     display: none;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 2;
+    margin: -1vw 0 0 50%;
+    transform: translate(-50%, 0);
+    z-index: 4;
     background-color: white;
     color: black;
 }
-.systemlist-list-item {
+.factionlist-list-item {
     padding: .5vw 1vw .8vw;
     font-size: 1vw;
     text-align: left;
+    font-size: 0.9vw;
 }
-.systemlist:hover .systemlist-content{
+.factionlist:hover .factionlist-content{
     display: block;
     position: absolute;
-}
-.systemlist-list-item a {
-    color: black;
-    text-decoration: none;
-}
-.systemlist-list-item a:hover {
-    color: gray;
 }
 
 
