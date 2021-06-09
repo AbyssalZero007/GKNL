@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type"text/css" href="./visuals/styles/styles.css">
     <title>Glory Knows No Limit</title>
-    <script type="text/javascript" src="..\Back-End\sessvars.js"></script>
-    <script type="text/javascript" src="..\Back-End\PlanetCreator.js"></script>
-    <script type="text/javascript" src="..\Back-End\CustomHexMapCode.js"></script>
+    <script type = "text/javascript" src="./scripts/public/sessvars.js"></script>
+    <script type = "text/javascript" src="./scripts/public/PlanetCreator.js"></script>
+    <script type = "text/javascript" src="./scripts/public/CustomHexMapCode.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
     function startFunction() {
@@ -58,7 +58,7 @@
     </nav>
 
     <content>
-    <img src="..\Images\Background_Plate.png" alt="TileBackground" id="tileBackground">
+    <img src="./visuals/images/Background_Plate.png" alt="TileBackground" id="tileBackground">
     <div class="flexTileMap">
         <div id="infoBar">
             <div style="position: sticky; top: 0.5vw; padding-bottom: 1vw;">
@@ -138,7 +138,7 @@
             </div>
         </div>
         <div id="tileMap">
-            <img src="..\Images\Background_Plate.png" alt="TileBackground" style="object-fit: contain; width: 100%; visibility: hidden;">
+            <img src="./visuals/images/Background_Plate.png" alt="TileBackground" style="object-fit: contain; width: 100%; visibility: hidden;">
 
             <div id="hexmapContainer"><!-- Overlayed tile hex map -->
                 <canvas id="hexDrawingCanvas" onmousemove="mousemoveFunction(event)"></canvas>

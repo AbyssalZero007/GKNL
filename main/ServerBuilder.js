@@ -6,14 +6,11 @@ const path = require('path');
 const server = express();
 const port = 8080;
 
-server.use(express.static(path.join(__dirname, '../Images/')));
-server.use(express.static(__dirname + 'sessvars.js'));
-server.use(express.static(path.join(__dirname, '../Front-End/')));
-
 server.get('/', (req, res) => {
     
-    
-    res.sendFile(path.join(__dirname, '../Front-End/HomePage.html'));
+    server.use(express.static(__dirname + '/visuals'));
+    server.use(express.static(__dirname + '/scripts/public'));
+    res.sendFile(__dirname + '/HomePage.html');
 
     /*
     fs.readFile('DBInfo.js', function(err, data) {

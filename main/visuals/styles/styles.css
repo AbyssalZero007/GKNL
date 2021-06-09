@@ -26,7 +26,7 @@ header {
     font-size: 4.2vw;
     margin: 1vw auto 0;
     padding-top: 2.5vw;
-    background-image: url(../Images/Title_Screen.png);
+    background-image: url(../images/Title_Screen.png);
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -39,7 +39,7 @@ header {
 }
 body {
     font-family: 'Titillium Web', sans-serif;
-    background-image: url(../Images/Background_Plate_texture.png);
+    background-image: url(../images/Background_Plate_texture.png);
     background-size: cover;
 }
 .mapTitle {
@@ -131,7 +131,7 @@ td {
     color: white;
     margin-top: 5vw;
     padding-top: 2vw;
-    background-image: url(../Images/DigitalSkull.png);
+    background-image: url(../images/DigitalSkull.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -139,7 +139,7 @@ td {
 .loginButton {
     color: white;
     text-decoration: none;
-    background-image: url(../Images/Buttonless_plate.png);
+    background-image: url(../images/Buttonless_plate.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -230,7 +230,7 @@ td {
 .navLink {
     color: #aab1b5;
     text-decoration: none;
-    background-image: url(../Images/Buttonless_plate.png);
+    background-image: url(../images/Buttonless_plate.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -265,7 +265,7 @@ td {
     left: -4.5vw;
     color: white;
     width: 12vw;
-    background-image: url(../Images/Dropdown_Tile.png);
+    background-image: url(../images/Dropdown_Tile.png);
     background-position: center;
     text-align: center;
     z-index: 3;
