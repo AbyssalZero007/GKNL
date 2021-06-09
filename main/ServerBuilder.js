@@ -6,19 +6,27 @@ const path = require('path');
 const server = express();
 const port = 8080;
 
-server.get('/', (req, res) => {
-    
-    server.use(express.static(__dirname + '/visuals'));
-    server.use(express.static(__dirname + '/scripts/public'));
-    res.sendFile(__dirname + '/HomePage.html');
+server.use('/visuals', express.static(__dirname + '/visuals'));
+server.use('/scripts/public', express.static(__dirname + '/scripts/public'));
 
-    /*
-    fs.readFile('DBInfo.js', function(err, data) {
-        res.writeHead(200, {'Content-Type': 'text/js'});
-        res.write(data);
-        return res.end();
-    });
-    */
+server.get('/', (req, res) => {
+    res.sendFile(__dirname + '/HomePage.html');
+})
+
+server.get('/HomePage.html', (req, res) => {
+    res.sendFile(__dirname + '/HomePage.html');
+})
+
+server.get('/Lungor.html', (req, res) => {
+    res.sendFile(__dirname + '/Lungor.html');
+})
+
+server.get('/Login.html', (req, res) => {
+    res.sendFile(__dirname + '/Login.html');
+})
+
+server.get('/PlanetTemplateCustom.html', (req, res) => {
+    res.sendFile(__dirname + '/PlanetTemplateCustom.html');
 })
 
 server.listen(port, () => {
