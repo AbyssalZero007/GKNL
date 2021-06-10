@@ -1,4 +1,10 @@
 const mysql = require('mysql');
+const express = require('express');
+const path = require('path');
+const http = require('http');
+
+const server = express();
+const port = process.env.PORT || 8080;
 
 //Establishing Connections
 const w7f_fp = mysql.createConnection({
@@ -64,3 +70,15 @@ w7f_map.query('SELECT planid FROM planet', (err, planid) => {
 w7f_fp.end((err) => {});
 w7f_map.end((err) => {});
 w7f_player.end((err) => {});
+
+
+
+
+//Handling Requests
+server.get('/scripts/DBInfo.js', (req, res) => {
+  res.send('success');
+})
+
+http.createServer(server).listen(port, function () {
+  console.log('test on port' + port);
+});

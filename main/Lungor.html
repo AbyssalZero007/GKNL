@@ -3,9 +3,9 @@
 <head>
     <link rel="stylesheet" type"text/css" href="./visuals/styles/styles.css">
     <title>Glory Knows No Limit</title>
-    <script type = "text/javascript" src="./scripts/public/sessvars.js"></script>
-    <script type = "text/javascript" src="./scripts/public/PlanetCreator.js"></script>
-    <script type = "text/javascript" src="./scripts/public/CustomHexMapCode.js"></script>
+    <script type = "text/javascript" src="./scripts/sessvars.js"></script>
+    <!-- <script type = "text/javascript" src="./scripts/PlanetCreator.js"></script> -->
+    <script type = "text/javascript" src="./scripts/CustomHexMapCode.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script> 
         sessvars.planetID = 0;
@@ -22,7 +22,7 @@
                     document.getElementById('diagText').innerHTML = this.responseText;
                 }
             };
-            xhttp.open("GET", "https://localhost:8080/DBInfo.js", true);
+            xhttp.open("GET", "/scripts/DBInfo.js", true);
             xhttp.send();
         }
     </script>
@@ -68,7 +68,7 @@
     </div>
     <div class="contentContainer">
         <div id="Lungor" class="hoverAnchor" onclick="sessvars.planetID = sessvars.planetID + 1">
-            <a href="PlanetTemplateCustom.html"><img src="./visuals/images/SystemIcons/Lungor.png" alt="Lungor" class="systemButton"></a>
+            <a href="PlanetTemplate.html"><img src="./visuals/images/SystemIcons/Lungor.png" alt="Lungor" class="systemButton"></a>
             <p class="systemHoverbox"> test </p>
         </div>
         <div id="Arrakais">
