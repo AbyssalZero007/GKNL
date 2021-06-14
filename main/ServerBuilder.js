@@ -89,9 +89,9 @@ w7f_player.connect((err) => {
 w7f_map.query('SELECT planid FROM planet', (err, planid) => {
     if (err) throw err;
     console.log('Data received');
-    var str = "";
+    var str = [];
     for (id in planid) {
-        str += id;
+        str.push(id);
     }
 });
  
