@@ -115,8 +115,9 @@ server.get('/HomePage.html', (req, res) => {
 
 server.get('/Lungor.html', (req, res) => {
     res.sendFile(__dirname + '/Lungor.html');
-}).get('/ServerBuilder.js/:systemID/:planetID*', (req, res) => {
+}).get('/ServerBuilder.js/:username/:password*', (req, res) => {
     console.log(req.params);
+    //console.log(req.url);
     res.send('success');
 })
 

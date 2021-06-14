@@ -14,9 +14,21 @@
             document.getElementById('pageHead').innerHTML = sessvars.username;
             document.getElementById('statusMessage').style.visibility = "visible";
         }
+        function start() {
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('diagText').innerHTML = this.responseText;
+                }
+            };
+            //as many /0's can be added to the request url as you need. They each represent different pieces of data being sent to the server from the site. They can be any alphanumeric character
+            xhttp.open("GET", "/ServerBuilder.js/USERNAME/" + password + "?pageid=" + (new Date()).getTime(), true);
+            xhttp.send();
+        }
     </script>
 </head>
-<body style="overflow: hidden;">
+<body onload="start()" style="overflow: hidden;">
 
     <header class="pageHeader">
         <div class="flex-container">
