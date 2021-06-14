@@ -16,14 +16,6 @@
         function startFunction() {
             sessvars.systemID = sessvars.systemID + systemNumber;
             sessvars.systemLink = pageLink;
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById('diagText').innerHTML = this.responseText;
-                }
-            };
-            xhttp.open("GET", "/scripts/DBInfo.js", true);
-            xhttp.send();
         }
     </script>
 </head>
@@ -87,7 +79,7 @@
             <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="./visuals/images/SystemIcons/Perditia.png" alt="Placeholder-round" class="systemButton"></a>
         </div>
         <div id="Batar">
-            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="../visuals/images/SystemIcons/Batar.png" alt="Placeholder-round" class="systemButton"></a>
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="./visuals/images/SystemIcons/Batar.png" alt="Batar" class="systemButton"></a>
         </div>
         <div id="Corrcon">
             <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="./visuals/images/SystemIcons/Corrcon.png" alt="Placeholder-round" class="systemButton"></a>
