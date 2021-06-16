@@ -31,19 +31,6 @@ CREATE SCHEMA IF NOT EXISTS `w7f_map` ;
 USE `w7f_player` ;
 
 -- -----------------------------------------------------
--- Table `w7f_player`.`roles`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `w7f_player`.`roles` ;
-
-CREATE TABLE IF NOT EXISTS `w7f_player`.`roles` (
-  `roleid` INT NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  `desc` VARCHAR(512) NULL,
-  PRIMARY KEY (`roleid`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `w7f_player`.`player`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `w7f_player`.`player` ;
@@ -51,16 +38,9 @@ DROP TABLE IF EXISTS `w7f_player`.`player` ;
 CREATE TABLE IF NOT EXISTS `w7f_player`.`player` (
   `pid` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `roleid` INT NULL,
   PRIMARY KEY (`pid`),
   UNIQUE INDEX `pid_UNIQUE` (`pid` ASC),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC),
-  INDEX `roleid_fk_idx` (`roleid` ASC),
-  CONSTRAINT `roleid_fk`
-    FOREIGN KEY (`roleid`)
-    REFERENCES `w7f_player`.`roles` (`roleid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
 ENGINE = InnoDB;
 
 
@@ -70,7 +50,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `w7f_player`.`login` ;
 
 CREATE TABLE IF NOT EXISTS `w7f_player`.`login` (
-  `username` INT NOT NULL,
+  `username` VARCHAR(64) NOT NULL,
   `pw` VARCHAR(128) NOT NULL,
   `pid` INT NOT NULL,
   UNIQUE INDEX `username_UNIQUE` (`username` ASC),
@@ -127,6 +107,18 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `w7f_player`.`bh_type`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `w7f_player`.`bh_type` ;
+
+CREATE TABLE IF NOT EXISTS `w7f_player`.`bh_type` (
+  `typeid` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`typeid`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `w7f_player`.`unit`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `w7f_player`.`unit` ;
@@ -137,16 +129,21 @@ CREATE TABLE IF NOT EXISTS `w7f_player`.`unit` (
   `name` VARCHAR(45) NOT NULL,
   `datasheet` VARCHAR(45) NOT NULL,
   `pl` INT NOT NULL,
-  `unitcol` VARCHAR(45) NOT NULL,
   `type` INT NOT NULL,
   PRIMARY KEY (`unitid`),
   INDEX `roster_idx` (`rosterid` ASC),
   UNIQUE INDEX `unitid_UNIQUE` (`unitid` ASC),
+  INDEX `bhtype_idx` (`type` ASC),
   CONSTRAINT `roster`
     FOREIGN KEY (`rosterid`)
     REFERENCES `w7f_player`.`roster` (`rosterid`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON UPDATE CASCADE,
+  CONSTRAINT `bhtype`
+    FOREIGN KEY (`type`)
+    REFERENCES `w7f_player`.`bh_type` (`typeid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -161,7 +158,13 @@ CREATE TABLE IF NOT EXISTS `w7f_player`.`battle_honours` (
   `typeid` INT NOT NULL,
   PRIMARY KEY (`bhid`),
   UNIQUE INDEX `bhid_UNIQUE` (`bhid` ASC),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC),
+  INDEX `bh_type_bh_idx` (`typeid` ASC),
+  CONSTRAINT `bh_type_bh`
+    FOREIGN KEY (`typeid`)
+    REFERENCES `w7f_player`.`bh_type` (`typeid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -176,7 +179,13 @@ CREATE TABLE IF NOT EXISTS `w7f_player`.`scars` (
   `typeid` INT NOT NULL,
   PRIMARY KEY (`scarid`),
   UNIQUE INDEX `scarid_UNIQUE` (`scarid` ASC),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC),
+  INDEX `bh_type_scar_idx` (`typeid` ASC),
+  CONSTRAINT `bh_type_scar`
+    FOREIGN KEY (`typeid`)
+    REFERENCES `w7f_player`.`bh_type` (`typeid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -190,6 +199,7 @@ CREATE TABLE IF NOT EXISTS `w7f_player`.`scar_on_unit` (
   `scarid` INT NOT NULL,
   INDEX `scar_idx` (`scarid` ASC),
   INDEX `unit_idx` (`scar_unitid` ASC),
+  UNIQUE INDEX `one_per_unit_scar` (`scar_unitid` ASC, `scarid` ASC),
   CONSTRAINT `scar`
     FOREIGN KEY (`scarid`)
     REFERENCES `w7f_player`.`scars` (`scarid`)
@@ -213,6 +223,7 @@ CREATE TABLE IF NOT EXISTS `w7f_player`.`bh_on_unit` (
   `bhid` INT NOT NULL,
   INDEX `bh_idx` (`bhid` ASC),
   INDEX `unit_idx` (`bh_unitid` ASC),
+  UNIQUE INDEX `one_per_unit_bh` (`bh_unitid` ASC, `bhid` ASC),
   CONSTRAINT `bh`
     FOREIGN KEY (`bhid`)
     REFERENCES `w7f_player`.`battle_honours` (`bhid`)
@@ -223,6 +234,20 @@ CREATE TABLE IF NOT EXISTS `w7f_player`.`bh_on_unit` (
     REFERENCES `w7f_player`.`unit` (`unitid`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `w7f_map`.`systems`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `w7f_map`.`systems` ;
+
+CREATE TABLE IF NOT EXISTS `w7f_map`.`systems` (
+  `sysid` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`sysid`),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC),
+  UNIQUE INDEX `sysid_UNIQUE` (`sysid` ASC))
 ENGINE = InnoDB;
 
 
@@ -244,10 +269,12 @@ CREATE TABLE IF NOT EXISTS `w7f_player`.`battle_report` (
   `player_1_verified` BIT(1) NULL,
   `player_2_verified` BIT(1) NULL,
   `contested` BIT(1) NULL,
+  `date` DATE NOT NULL,
   INDEX `pleyer_1_idx` (`player_1` ASC),
   INDEX `player_1_fac_idx` (`player_1_faction` ASC),
   INDEX `player_2_fac_idx` (`player_2_faction` ASC),
   INDEX `player_2_idx` (`player_2` ASC),
+  INDEX `br_sys_idx` (`system` ASC),
   CONSTRAINT `player_1`
     FOREIGN KEY (`player_1`)
     REFERENCES `w7f_player`.`player` (`pid`)
@@ -267,7 +294,48 @@ CREATE TABLE IF NOT EXISTS `w7f_player`.`battle_report` (
     FOREIGN KEY (`player_2_faction`)
     REFERENCES `w7f_player`.`faction` (`facid`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON UPDATE CASCADE,
+  CONSTRAINT `br_sys`
+    FOREIGN KEY (`system`)
+    REFERENCES `w7f_map`.`systems` (`sysid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `w7f_player`.`roles`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `w7f_player`.`roles` ;
+
+CREATE TABLE IF NOT EXISTS `w7f_player`.`roles` (
+  `roleid` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `desc` VARCHAR(512) NULL,
+  PRIMARY KEY (`roleid`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `w7f_player`.`role_on_player`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `w7f_player`.`role_on_player` ;
+
+CREATE TABLE IF NOT EXISTS `w7f_player`.`role_on_player` (
+  `pid` INT NOT NULL,
+  `roleid` INT NOT NULL,
+  UNIQUE INDEX `role_on_player_nonDuplicate` (`roleid` ASC, `pid` ASC),
+  INDEX `rop_pid_idx` (`pid` ASC),
+  CONSTRAINT `rop_pid`
+    FOREIGN KEY (`pid`)
+    REFERENCES `w7f_player`.`player` (`pid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `rop_roleid`
+    FOREIGN KEY (`roleid`)
+    REFERENCES `w7f_player`.`roles` (`roleid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 USE `w7f_fp` ;
@@ -337,20 +405,6 @@ CREATE TABLE IF NOT EXISTS `w7f_map`.`sysbonus` (
   `desc` VARCHAR(512) NOT NULL,
   PRIMARY KEY (`sysbonsid`),
   UNIQUE INDEX `sysbonsid_UNIQUE` (`sysbonsid` ASC))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `w7f_map`.`systems`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `w7f_map`.`systems` ;
-
-CREATE TABLE IF NOT EXISTS `w7f_map`.`systems` (
-  `sysid` INT NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`sysid`),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC),
-  UNIQUE INDEX `sysid_UNIQUE` (`sysid` ASC))
 ENGINE = InnoDB;
 
 
@@ -746,10 +800,84 @@ CREATE TABLE IF NOT EXISTS `w7f_map`.`trait_on_planet` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+USE `w7f_player`;
+
+DELIMITER $$
+
+USE `w7f_player`$$
+DROP TRIGGER IF EXISTS `w7f_player`.`battle_report_BEFORE_INSERT` $$
+USE `w7f_player`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `w7f_player`.`battle_report_BEFORE_INSERT` BEFORE INSERT ON `battle_report` FOR EACH ROW
+BEGIN
+
+END
+$$
+
+
+DELIMITER ;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `w7f_player`.`faction`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `w7f_player`;
+INSERT INTO `w7f_player`.`faction` (`facid`, `name`) VALUES (1, 'The Grater Good');
+INSERT INTO `w7f_player`.`faction` (`facid`, `name`) VALUES (2, 'Orkz');
+INSERT INTO `w7f_player`.`faction` (`facid`, `name`) VALUES (3, 'Necron');
+INSERT INTO `w7f_player`.`faction` (`facid`, `name`) VALUES (4, 'Imperium Indomitus');
+INSERT INTO `w7f_player`.`faction` (`facid`, `name`) VALUES (5, 'Imperium Divinus');
+INSERT INTO `w7f_player`.`faction` (`facid`, `name`) VALUES (6, 'Chaos');
+INSERT INTO `w7f_player`.`faction` (`facid`, `name`) VALUES (7, 'Eldar');
+INSERT INTO `w7f_player`.`faction` (`facid`, `name`) VALUES (8, 'Tyranid');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `w7f_player`.`bh_type`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `w7f_player`;
+INSERT INTO `w7f_player`.`bh_type` (`typeid`, `name`) VALUES (1, 'Character');
+INSERT INTO `w7f_player`.`bh_type` (`typeid`, `name`) VALUES (2, 'Vehicle');
+INSERT INTO `w7f_player`.`bh_type` (`typeid`, `name`) VALUES (3, 'Monster');
+INSERT INTO `w7f_player`.`bh_type` (`typeid`, `name`) VALUES (4, 'Other');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `w7f_map`.`systems`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `w7f_map`;
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (1, 'Lungor');
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (2, 'Arrakais');
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (3, 'Shrana');
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (4, 'Mar-Adett');
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (5, 'Amlitzer');
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (6, 'Perditia');
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (7, 'Batar');
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (8, 'Corrcon');
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (9, 'Val Ceti');
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (10, 'Tarsus');
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (11, 'Absconrio');
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (12, 'Novus Lumen');
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (13, 'Choas');
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (14, 'Ekela\'jhidor');
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (15, 'Indomitus');
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (16, 'Eldar');
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (17, 'Ork');
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (18, 'Tyranid');
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (19, 'Necron');
+INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (0, 'SPACE');
+
+COMMIT;
+
 
 -- -----------------------------------------------------
 -- Data for table `w7f_player`.`roles`
@@ -767,23 +895,6 @@ INSERT INTO `w7f_player`.`roles` (`roleid`, `name`, `desc`) VALUES (1043, 'Eldar
 INSERT INTO `w7f_player`.`roles` (`roleid`, `name`, `desc`) VALUES (7537, 'Tyranid Captain', '');
 INSERT INTO `w7f_player`.`roles` (`roleid`, `name`, `desc`) VALUES (8712, 'Game Master', '');
 INSERT INTO `w7f_player`.`roles` (`roleid`, `name`, `desc`) VALUES (1026, 'Admin', '');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `w7f_player`.`faction`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `w7f_player`;
-INSERT INTO `w7f_player`.`faction` (`facid`, `name`) VALUES (1, 'The Grater Good');
-INSERT INTO `w7f_player`.`faction` (`facid`, `name`) VALUES (2, 'Orkz');
-INSERT INTO `w7f_player`.`faction` (`facid`, `name`) VALUES (3, 'Necron');
-INSERT INTO `w7f_player`.`faction` (`facid`, `name`) VALUES (4, 'Imperium Indomitus');
-INSERT INTO `w7f_player`.`faction` (`facid`, `name`) VALUES (5, 'Imperium Divinus');
-INSERT INTO `w7f_player`.`faction` (`facid`, `name`) VALUES (6, 'Chaos');
-INSERT INTO `w7f_player`.`faction` (`facid`, `name`) VALUES (7, 'Eldar');
-INSERT INTO `w7f_player`.`faction` (`facid`, `name`) VALUES (8, 'Tyranid');
 
 COMMIT;
 
@@ -832,35 +943,6 @@ INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`) VALUES (9, 'Stell
 INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`) VALUES (6, 'Ruined Empire: Remnants of wars untold', 'Pock marked bunkers, decrepit orbital defence lasers, and dust filled trenches can tell the last tale and fate of an empire that has long been destroyed Each player may incorporate a free fortification (No point or CP cost) if it is under 200 points.');
 INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`) VALUES (10, 'Warp Stasis: Calm Tides', 'The warp is calm here, extremely calm to the point most ships struggle to leave once inside. All Psychic tests subtract 2 from the total. If this would reduce your total to 2 or lower, the Psyker suffers Perils of the Warp. When a Psyker suffers Perils of the Warp instead of suffering D3 mortal wounds, the psyker takes 1 mortal wound.');
 INSERT INTO `w7f_map`.`sysbonus` (`sysbonsid`, `name`, `desc`) VALUES (11, 'Warp Turbulence: Raging Tides', 'A warp storm has broken out in this system unleashing all the hazards associated with them. All Psychic tests add 2 to the total. If this would increase your total to 12 or higher, the Psyker suffers Perils of the Warp. When a Psyker suffers Perils of the Warp instead of suffering D3 mortal wounds, the psyker takes 3 mortal wounds.');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `w7f_map`.`systems`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `w7f_map`;
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (1, 'Lungor');
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (2, 'Arrakais');
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (3, 'Shrana');
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (4, 'Mar-Adett');
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (5, 'Amlitzer');
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (6, 'Perditia');
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (7, 'Batar');
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (8, 'Corrcon');
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (9, 'Val Ceti');
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (10, 'Tarsus');
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (11, 'Absconrio');
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (12, 'Novus Lumen');
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (13, 'Choas');
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (14, 'Ekela\'jhidor');
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (15, 'Indomitus');
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (16, 'Eldar');
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (17, 'Ork');
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (18, 'Tyranid');
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (19, 'Necron');
-INSERT INTO `w7f_map`.`systems` (`sysid`, `name`) VALUES (0, 'SPACE');
 
 COMMIT;
 
