@@ -10,11 +10,10 @@
     <script>
         function login() {
             sessvars.username = document.getElementById('userName').value;
-            sessvars.faction = 0;//this would be a pull from the database based off of the username
-            document.getElementById('pageHead').innerHTML = sessvars.username;
+            sessvars.password = document.getElementById('password').value;
+            //document.getElementById('diagText').innerHTML = sessvars.username;
             document.getElementById('statusMessage').style.visibility = "visible";
-        }
-        function start() {
+            
 
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
@@ -23,8 +22,15 @@
                 }
             };
             //as many /0's can be added to the request url as you need. They each represent different pieces of data being sent to the server from the site. They can be any alphanumeric character
-            xhttp.open("GET", "/ServerBuilder.js/USERNAME/" + password + "?pageid=" + (new Date()).getTime(), true);
+            xhttp.open("GET", "/ServerBuilder.js/login/"+sessvars.username+"/"+sessvars.password+"?pageid=" + (new Date()).getTime(), true);
             xhttp.send();
+
+            document.getElementById('userName').value = "";
+            document.getElementById('password').value = "";
+        }
+        function start() {
+
+            
         }
     </script>
 </head>

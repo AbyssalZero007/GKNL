@@ -4,21 +4,46 @@
     <link rel="stylesheet" type"text/css" href="./visuals/styles/styles.css">
     <title>Glory Knows No Limit</title>
     <script type = "text/javascript" src="./scripts/sessvars.js"></script>
-    <!-- <script type = "text/javascript" src="./scripts/PlanetCreator.js"></script> -->
     <script type = "text/javascript" src="./scripts/CustomHexMapCode.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
-    function startFunction() {
-        document.getElementById('backLink').href = sessvars.systemLink.toString();
-        var widthPixel = document.getElementById('hexmapContainer').offsetWidth;
-        var heightPixel = document.getElementById('hexmapContainer').offsetHeight;
-        document.getElementById('hexDrawingCanvas').setAttribute('width', widthPixel);
-        document.getElementById('hexDrawingCanvas').setAttribute('height', heightPixel);
-        document.getElementById('diagBox').innerHTML = sessvars.systemLink.toString() + "<br>" + sessvars.systemID.toString() + "<br>" + sessvars.planetID.toString();
+        function startFunction() {
+            class testClass {
+                constructor(string, number, array) {
+                    var myString = string;
+                    var myInt = number;
+                    var myArray = array;
+                }
+                toString() {
+                    var newString = "myString: "+myString+"; myNumber: "+myInt+"; myArray"+myArray;
+                }
+            }
+            document.getElementById('backLink').href = sessvars.systemLink.toString();
+            var widthPixel = document.getElementById('hexmapContainer').offsetWidth;
+            var heightPixel = document.getElementById('hexmapContainer').offsetHeight;
+            document.getElementById('hexDrawingCanvas').setAttribute('width', widthPixel);
+            document.getElementById('hexDrawingCanvas').setAttribute('height', heightPixel);
+            //document.getElementById('diagBox').innerHTML = sessvars.systemLink.toString() + "<br>" + sessvars.systemID.toString() + "<br>" + sessvars.planetID.toString();
 
-        //input: amount of tiles on planet, side width (2.5 seems around the best to me)
-        hexMapBuild(91, 2.25);
-    }
+            var xhttp = new XMLHttpRequest();
+            var xmlDoc;
+            var parser = new DOMParser();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    
+                    xmlDoc = parser.parseFromString(this.responseText, "application/xml");
+                    console.log(this.responseText);
+                    console.log(xmlDoc.documentElement.textContent);//xmlDoc.getElementById('tile1'));
+                    //document.getElementById('diagText').innerHTML = this.responseText;
+                }
+            };
+            //as many /0's can be added to the request url as you need. They each represent different pieces of data being sent to the server from the site. They can be any alphanumeric character
+            xhttp.open("GET", "/ServerBuilder.js/planet/"+sessvars.systemID+"/"+sessvars.planetID+"?pageid=" + (new Date()).getTime(), true);
+            xhttp.send();
+
+            //input: amount of tiles on planet, side width (2.25 seems around the best to me)
+            hexMapBuild(91, 2.25);
+        }
     </script>
 </head>
 <body onload="startFunction();" onresize="rebuild()" id="body">
