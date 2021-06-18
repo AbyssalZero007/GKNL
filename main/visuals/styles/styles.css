@@ -88,9 +88,9 @@ body {
 .tileDataDisplay {
     text-align: left;
     padding-left: 1vw;
+    font-size: 1vw;
 }
 .tileDataDisplayMutable {
-    
 }
 .tileStats {
     top: 0.5vw;
@@ -193,6 +193,7 @@ td {
 .factionlist {
     position: static;
     text-decoration: underline;
+    padding-bottom: 0.75vw;
 }
 .factionlist-content {
     display: none;
@@ -200,18 +201,23 @@ td {
     margin: -1vw 0 0 50%;
     transform: translate(-50%, 0);
     z-index: 4;
-    background-color: white;
-    color: black;
+    background-color: gray;
+    /*opacity: 80%;*/
 }
 .factionlist-list-item {
     padding: .5vw 1vw .8vw;
-    font-size: 1vw;
+    font-size: 0.8vw;
     text-align: left;
-    font-size: 0.9vw;
 }
 .factionlist:hover .factionlist-content{
     display: block;
     position: absolute;
+}
+.factionBuildingLink {
+    color: white;
+}
+.factionBuildingLink:hover {
+    color: red;
 }
 
 

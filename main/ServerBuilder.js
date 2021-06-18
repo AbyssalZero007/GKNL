@@ -90,10 +90,19 @@ w7f_player.query('SELECT username, pw FROM login', (err, res) => {
 
 //tile call
 function tilesByPlanet(planid, callback) {
+    console.log(planid);
     w7f_map.query('SELECT p.name, t.* FROM planet AS p, tiles AS t WHERE t.planid = p.planid AND p.planid = '+planid, (err, res) => {
         if (err) throw err;
         console.log('tiles for planet '+planid+' received');
-        return callback(err, res);
+        if (res[0] != null) {
+            console.log('Planet Info Sent');
+            return callback(err, res);
+        } else {
+            console.log('Gas Giant Sent');
+            w7f_map.query('SELECT p.name FROM planet as p WHERE p.planid ='+ planid, (err, res2) => {
+                return callback(err, ['Gas Giant', res2[0].name]);
+            })
+        }
     });
 }
 
@@ -125,34 +134,30 @@ server.get('/Login.html', (req, res) => {
 server.get('/PlanetTemplate.html', (req, res) => {
     res.sendFile(__dirname + '/PlanetTemplate.html');
 }).get('/ServerBuilder.js/planet/:system/:planet*', (req, res) => {
-    var xw = new XMLWriter;
     tilesByPlanet(req.params.planet, function (err, tiles) {
         if (err) throw err;
+        var xw = new XMLWriter;
+        console.log(tiles);
         console.log(req.params);
         console.log(req.url);
-        console.log('Tile count: '+tiles.length+' on planet '+tiles[0].name);
-        
-        xw.startDocument();
-        for (item of tiles) {
-            xw.startElement('tile'+item.tileid);
-            for (prop in item) {
-                //console.log(prop + ": " + item[prop]);
-                xw.writeAttribute(prop, item[prop].toString());
+        if (!(tiles[0] == 'Gas Giant')) {
+            console.log('Tile count: '+tiles.length+' on planet '+tiles[0]);
+            xw.startDocument().startElement('root');
+            for (item of tiles) {
+                xw.startElement('tile'+item.tileid);
+                for (prop in item) {
+                    //console.log(prop + ": " + item[prop]);
+                    xw.writeAttribute(prop, item[prop].toString());
+                }
+                xw.endElement();
             }
-            xw.endElement();
+            xw.endElement().endDocument();
+        } else {
+            xw.startDocument().startElement('root');
+            xw.writeAttribute('name', tiles[1]).text(tiles[0]);
+            xw.endElement().endDocument();
         }
-        xw.endDocument();
         console.log(xw.output);
-        
-        var counter = 0;
-        var returnString = xw.output;
-        while (returnString.indexOf('null') != -1) {
-            var index = returnString.indexOf('null');
-            console.log(index);
-            returnString = returnString.substring(0, index) + returnString.substring(index);
-            counter++;
-        }
-        console.log(counter);
         res.send(xw.output);
     });
 });
