@@ -7,25 +7,42 @@
     <script type = "text/javascript" src="./scripts/CustomHexMapCode.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
+        var xmlDoc;
         function startFunction() {
             document.getElementById('backLink').href = sessvars.systemLink.toString();
             var widthPixel = document.getElementById('hexmapContainer').offsetWidth;
             var heightPixel = document.getElementById('hexmapContainer').offsetHeight;
             document.getElementById('hexDrawingCanvas').setAttribute('width', widthPixel);
             document.getElementById('hexDrawingCanvas').setAttribute('height', heightPixel);
-            //document.getElementById('diagBox').innerHTML = sessvars.systemLink.toString() + "<br>" + sessvars.systemID.toString() + "<br>" + sessvars.planetID.toString();
+            var canvasXMid = (document.getElementById('hexDrawingCanvas').getAttribute('width')/2).toString();
+            var canvasYMid = (document.getElementById('hexDrawingCanvas').getAttribute('height')/2).toString();
+            console.log(canvasXMid + ": " + canvasYMid);
+            
 
             var xhttp = new XMLHttpRequest();
             var parser = new DOMParser();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    var xmlDoc = parser.parseFromString(this.responseText, "application/xml");
+                    xmlDoc = parser.parseFromString(this.responseText, "application/xml");
                     console.log(xmlDoc);
                     if (!(xmlDoc.getElementsByTagName('root')[0].innerHTML == "Gas Giant")) {
                         console.log(xmlDoc.getElementsByTagName('root')[0].childNodes[0].getAttribute('name'));
-                        hexMapBuild(xmlDoc.getElementsByTagName('root')[0].childNodes.length, 2.25);
+                        var r = hexMapBuild(xmlDoc.getElementsByTagName('root')[0].childNodes.length, 2.25);
+                        planetImgInsert(sessvars.planetImg);
+                        document.getElementById('planetImg').style.left = canvasXMid+"px";
+                        document.getElementById('planetImg').style.top = canvasYMid+"px";
+                        document.getElementById('planetImg').style.width = r+"px";
                         document.getElementById('pageHead').innerHTML = xmlDoc.getElementsByTagName('root')[0].childNodes[0].getAttribute('name');
-                        
+                        document.getElementById('tableTitle').innerHTML = xmlDoc.getElementsByTagName('root')[0].childNodes[0].getAttribute('name');
+                        document.getElementById('conFac').innerHTML = xmlDoc.getElementsByTagName('tile')[0].getAttribute('facName');
+                        document.getElementById('conFacFort').innerHTML = xmlDoc.getElementsByTagName('tile')[0].getAttribute('forts');
+                        var build = xmlDoc.getElementsByTagName('tile')[0].getAttribute('build_1') + "; " +
+                            xmlDoc.getElementsByTagName('tile')[0].getAttribute('build_2') + "; " +
+                            xmlDoc.getElementsByTagName('tile')[0].getAttribute('build_3');
+                        while (build.indexOf("0") != -1) {
+                            build = build.substring(0, build.indexOf("0")) + "None" + build.substring(build.indexOf("0")+1);
+                        }
+                        document.getElementById('conFacBuild').innerHTML = build;
                     } else {
                         
                     }
@@ -34,6 +51,79 @@
             //as many /0's can be added to the request url as you need. They each represent different pieces of data being sent to the server from the site. They can be any alphanumeric character
             xhttp.open("GET", "/ServerBuilder.js/planet/"+sessvars.systemID+"/"+sessvars.planetID+"?pageid=" + (new Date()).getTime(), true);
             xhttp.send();
+
+
+        }
+        function buildingsTableFaction(faction) {
+            document.getElementById('factionBuild').innerHTML = " - "+faction;
+
+            for (i of xmlDoc.getElementsByTagName('tile')) {
+                var table = document.getElementById('buildingsTable');
+                var x = table.rows.length - 1;
+                
+                //Current working
+                if (i.getAttribute('build_1') != "0" && i.getAttribute('facName') == faction) {
+                    var newRow = table.insertRow(-1);
+                    var newCell = newRow.insertCell(0).setAttribute('class', 'buildingDisplay');
+                    table.rows[x].cells[0].innerHTML = i.getAttribute('build_1');
+                    newRow.setAttribute('class', 'buildingsTabledata');
+                }
+                if (i.getAttribute('build_2') != "0" && i.getAttribute('facName') == faction) {
+                    var newRow = table.insertRow(-1);
+                    var newCell = newRow.insertCell(0).setAttribute('class', 'buildingDisplay');
+                    table.rows[x].cells[0].innerHTML = i.getAttribute('build_2');
+                    newRow.setAttribute('class', 'buildingsTabledata');
+                }
+                if (i.getAttribute('build_3') != "0" && i.getAttribute('facName') == faction) {
+                    var newRow = table.insertRow(-1);
+                    var newCell = newRow.insertCell(0).setAttribute('class', 'buildingDisplay');
+                    table.rows[x].cells[0].innerHTML = i.getAttribute('build_3');
+                    newRow.setAttribute('class', 'buildingsTabledata');
+                }
+
+            }
+            console.log(document.getElementById('buildingsTable'));
+            if (!(document.getElementById('buildingsTable').rows[0].cells[0].innerHTML === "None")) {
+                document.getElementById('buildingsTable').deleteRow(-1);
+            }
+        }
+        function mousemoveFunction(event) {
+            var canvasHover = document.getElementById('hexDrawingCanvas');
+            var ctxHover = canvasHover.getContext('2d');
+            var rect = document.getElementById('hexDrawingCanvas').getBoundingClientRect();
+            var mouseX = event.clientX - rect.left;
+            var mouseY = event.clientY - rect.top;
+
+            for (i = 0; i < hoverAreas.length; i++) {
+                //console.log(hoverAreas[i].toString());
+                ctxHover.beginPath();
+                ctxHover.arc(hoverAreas[i].getX(), hoverAreas[i].getY(), hoverAreas[i].getR(), 0, 2*Math.PI);
+                
+                if (ctxHover.isPointInPath(mouseX, mouseY)) {
+                    //ctxHover.globalAlpha = 1.0;
+                    //ctxHover.fillStyle = "green";
+                    hoverActionOn(i+1);
+                } else {
+                    //ctxHover.globalAlpha = 1.0;
+                    //ctxHover.fillStyle = "white";
+                }
+                //ctxHover.fill();
+            }
+            
+        }
+
+        function hoverActionOn(text) {
+            document.getElementById('infoBarTitleMutable').innerHTML = text;
+
+            document.getElementById('conFac').innerHTML = xmlDoc.getElementsByTagName('tile')[0].getAttribute('facName');
+            document.getElementById('conFacFort').innerHTML = xmlDoc.getElementsByTagName('tile')[0].getAttribute('forts');
+            var build = xmlDoc.getElementsByTagName('tile')[0].getAttribute('build_1') + "; " +
+                xmlDoc.getElementsByTagName('tile')[0].getAttribute('build_2') + "; " +
+                xmlDoc.getElementsByTagName('tile')[0].getAttribute('build_3');
+            while (build.indexOf("0") != -1) {
+                build = build.substring(0, build.indexOf("0")) + "None" + build.substring(build.indexOf("0")+1);
+            }
+            document.getElementById('conFacBuild').innerHTML = build;
         }
     </script>
 </head>
@@ -45,7 +135,7 @@
                 <h1 id="pageHead" class="pageTitle"></h1>
             </div>
         </div>
-        <div id="diagBox" style="position: fixed; top: 0; right: 0; width: 10%; background-color: gray; color: white; font-size: 12 pt; z-index: 10;">
+        <div id="diagBox" style="position: fixed; top: 0; right: 0; width: 20%; background-color: gray; color: white; font-size: 12 pt; z-index: 10;">
             <p id="diagText">test</p>
         </div>
     </header>
@@ -79,83 +169,39 @@
         <div id="infoBar" style="font-size: 0.85vw;">
             <div style="position: sticky; top: 0.5vw; padding-bottom: 1vw;">
                 <div class="tileStats">
-                    <h3 style="text-decoration: underline;">Tile <span id="infoBarTitleMutable">test</span>:</h3>
-                    <p class="tileDataDisplay"><u>Controlling Faction:</u> <span class="tileDataDisplayMutable">test</span></p>
-                    <p class="tileDataDisplay"><u>Fotifications:</u> <span class="tileDataDisplayMutable">test</span></p>
-                    <p class="tileDataDisplay"><u>Buildings:</u> <span class="tileDataDisplayMutable">test</span></p>
+                    <h3 style="text-decoration: underline;">Tile <span id="infoBarTitleMutable">1</span>:</h3>
+                    <p class="tileDataDisplay"><u>Controlling Faction:</u> <span id="conFac" class="tileDataDisplayMutable"></span></p>
+                    <p class="tileDataDisplay"><u>Fotifications:</u> <span id="conFacFort" class="tileDataDisplayMutable"></span></p>
+                    <p class="tileDataDisplay"><u>Buildings:</u> <span id="conFacBuild" class="tileDataDisplayMutable"></span></p>
                 </div>
-                <div style="border-top-style: solid; position: relative;">
-                    <h3 style="text-decoration: underline;">Planet Name Buildings:</h3>
+                <div style="border-top-style: solid; position: relative; padding: 0 4vw;">
+                    <h3 style="text-decoration: underline;"><span id="tableTitle">Planet Name</span> Buildings:</h3>
                     <div class="factionlist">
-                        <h3>Faction:</h3>
+                        <h3>Faction<span id="factionBuild"></span>:</h3>
                         <div class="factionlist-content">
                             <ul>
-                                <li class="factionlist-list-item"><span class="factionBuildingLink" onclick="">Orks</span></li>
-                                <li class="factionlist-list-item"><span class="factionBuildingLink" onclick="">Tyranids</span></li>
-                                <li class="factionlist-list-item"><span class="factionBuildingLink" onclick="">Chaos</span></li>
-                                <li class="factionlist-list-item"><span class="factionBuildingLink" onclick="">Imperium Indomitus</span></li>
+                                <li class="factionlist-list-item"><span class="factionBuildingLink" onclick="buildingsTableFaction('Ork')">Ork</span></li>
+                                <li class="factionlist-list-item"><span class="factionBuildingLink" onclick="buildingsTableFaction('Tyranid')">Tyranid</span></li>
+                                <li class="factionlist-list-item"><span class="factionBuildingLink" onclick="buildingsTableFaction('Chaos')">Chaos</span></li>
+                                <li class="factionlist-list-item"><span class="factionBuildingLink" onclick="buildingsTableFaction('Imperium Indomitus')">Imperium Indomitus</span></li>
+                                <li class="factionlist-list-item"><span class="factionBuildingLink" onclick="buildingsTableFaction('Imperialis Verum')">Imperialis Verum</span></li>
+                                <li class="factionlist-list-item"><span class="factionBuildingLink" onclick="buildingsTableFaction('Aeldari')">Aeldari</span></li>
+                                <li class="factionlist-list-item"><span class="factionBuildingLink" onclick="buildingsTableFaction('The Greater Good')">The Greater Good</span></li>
+                                <li class="factionlist-list-item"><span class="factionBuildingLink" onclick="buildingsTableFaction('Necron')">Necron</span></li>
                             </ul>
                         </div>
                     </div>
-                    <table>
-                        <tr id="barracks">
-                            <td class="buildingDisplay"><u>Barracks:</u></td>
-                            <td class="buildingDisplayMutable">test</td>
-                        </tr>
-                        <tr id="intHub">
-                            <td class="buildingDisplay"><u>Intelligence Hub:</u></td>
-                            <td class="buildingDisplayMutable">test</td>
-                        </tr>
-                        <tr id="outpost">
-                            <td class="buildingDisplay"><u>Outpost:</u></td>
-                            <td class="buildingDisplayMutable">test</td>
-                        </tr>
-                        <tr id="manufactorum">
-                            <td class="buildingDisplay"><u>Manufactorum:</u></td>
-                            <td class="buildingDisplayMutable">test</td>
-                        </tr>
-                        <tr id="trenches">
-                            <td class="buildingDisplay"><u>Trench Network:</u></td>
-                            <td class="buildingDisplayMutable">test</td>
-                        </tr>
-                        <tr id="airfield">
-                            <td class="buildingDisplay"><u>Airfield:</u></td>
-                            <td class="buildingDisplayMutable">test</td>
-                        </tr>
-                        <tr id="spaceport">
-                            <td class="buildingDisplay"><u>Spaceport:</u></td>
-                            <td class="buildingDisplayMutable">test</td>
-                        </tr>
-                        <tr id="lodgings">
-                            <td class="buildingDisplay"><u>Personal Lodgings:</u></td>
-                            <td class="buildingDisplayMutable">test</td>
-                        </tr>
-                        <tr id="monument">
-                            <td class="buildingDisplay"><u>Monument:</u></td>
-                            <td class="buildingDisplayMutable">test</td>
-                        </tr>
-                        <tr id="commRelay">
-                            <td class="buildingDisplay"><u>Communications Relay:</u></td>
-                            <td class="buildingDisplayMutable">test</td>
-                        </tr>
-                        <tr id="mine">
-                            <td class="buildingDisplay"><u>Mines:</u></td>
-                            <td class="buildingDisplayMutable">test</td>
-                        </tr>
-                        <tr id="generator">
-                            <td class="buildingDisplay"><u>Exotic Generator:</u></td>
-                            <td class="buildingDisplayMutable">test</td>
-                        </tr>
-                        <tr id="none">
-                            <td colspan="2" class="buildingDisplay"><u>None</u></td>
+                    <table id="buildingsTable">
+                        <tr id="none" class="buildingsTabledata">
+                            <td class="buildingDisplay">None</td>
                         </tr>
                     </table>
                 </div>
             </div>
         </div>
         <div id="tileMap">
+        <img id="planetImg" src="" alt="Planet Image">
             <img src="./visuals/images/Background_Plate.png" alt="TileBackground" style="object-fit: contain; width: 100%; visibility: hidden;">
-
             <div id="hexmapContainer"><!-- Overlayed tile hex map -->
                 <canvas id="hexDrawingCanvas" onmousemove="mousemoveFunction(event)"></canvas>
             </div>

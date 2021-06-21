@@ -9,13 +9,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script> 
         sessvars.planetID = 0;
-        sessvars.systemID = 0;
         sessvars.systemLink = "";
+        sessvars.planetImg = "";
         var pageLink = "Lungor.html";
         var systemNumber = 1;
+        var xmlDoc;
         function startFunction() {
-            sessvars.systemID = sessvars.systemID + systemNumber;
+            sessvars.systemID = systemNumber;
             sessvars.systemLink = pageLink;
+
+            var xhttp = new XMLHttpRequest();
+            var parser = new DOMParser();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    xmlDoc = parser.parseFromString(this.responseText, "application/xml");
+                    console.log(xmlDoc);
+                }
+            };
+            //as many /0's can be added to the request url as you need. They each represent different pieces of data being sent to the server from the site. They can be any alphanumeric character
+            xhttp.open("GET", "/ServerBuilder.js/system/"+sessvars.systemID+"?pageid=" + (new Date()).getTime(), true);
+            xhttp.send();
+        }
+        function pageAssignment(planid, planImg) {
+            sessvars.planetID = planid;
+            sessvars.planetImg = planImg;
         }
     </script>
 </head>
@@ -59,7 +76,7 @@
         <img src="./visuals/images/Screen.png" alt="map" style="object-fit: contain; width: 100%; height: auto;">
     </div>
     <div class="contentContainer">
-        <div id="Lungor" class="hoverAnchor" onclick="sessvars.planetID = sessvars.planetID + 4">
+        <div id="Lungor" class="hoverAnchor" onclick="pageAssignment(204, './visuals/images/SystemIcons/Lungor.png')">
             <a href="PlanetTemplate.html"><img src="./visuals/images/SystemIcons/Lungor.png" alt="Lungor" class="systemButton"></a>
             <p class="systemHoverbox"> test </p>
         </div>

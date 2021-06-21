@@ -215,12 +215,10 @@ function hexMapBuild(tiles, percentLength) {
             }
         }
     }
-    /*
-    ctx.beginPath();
-    ctx.arc(canvas.width/2, canvas.height/2, circleRadius, 0, 2*Math.PI)
-    ctx.fillStyle = "white";
-    ctx.fill();
-    */
+    if (layerCounter == 1) {
+        layerCounter++;
+    }
+    return ((r*Math.sqrt(3)*layerCounter)*2)+((r*Math.sqrt(3)/2)*layerCounter);
 }
 
 function hexDraw(x, y, r, percent) {
@@ -237,7 +235,7 @@ function hexDraw(x, y, r, percent) {
     //hoverBuild(x, y, percent);
 }
 
-//dosent work for the hover areas, need to figured out why
+//dosent work for the hover areas, need to figure out why
 function rebuild() {
     var canvasRebuild = document.getElementById('hexDrawingCanvas');
     var ctx = canvasRebuild.getContext('2d');
@@ -271,41 +269,20 @@ function hoverBuild(x, y, percentLength) {
     ctxHover.font = "16px Arial";
     ctxHover.fillText(hoverAreas.length, hoverAreas[hoverAreas.length-1].getX()-8, hoverAreas[hoverAreas.length-1].getY()+8);
     ctxHover.closePath();
-
-    
 }
 
-function mousemoveFunction(event) {
-    var canvasHover = document.getElementById('hexDrawingCanvas');
-    var ctxHover = canvasHover.getContext('2d');
-    var rect = document.getElementById('hexDrawingCanvas').getBoundingClientRect();
-    var mouseX = event.clientX - rect.left;
-    var mouseY = event.clientY - rect.top;
+function planetImgInsert(img) {
+    var pageImg = document.getElementById('planetImg');
+    pageImg.setAttribute('src', img);
 
-    for (i = 0; i < hoverAreas.length; i++) {
-        //console.log(hoverAreas[i].toString());
-        ctxHover.beginPath();
-        ctxHover.arc(hoverAreas[i].getX(), hoverAreas[i].getY(), hoverAreas[i].getR(), 0, 2*Math.PI);
-        
-        if (ctxHover.isPointInPath(mouseX, mouseY)) {
-            //ctxHover.globalAlpha = 1.0;
-            //ctxHover.fillStyle = "green";
-            hoverActionOn(i+1);
-        } else {
-            //ctxHover.globalAlpha = 1.0;
-            //ctxHover.fillStyle = "white";
-        }
-        //ctxHover.fill();
-    }
-    
-}
-
-function hoverActionOn(text) {
-    document.getElementById('infoBarTitleMutable').innerHTML = text;
-}
-
-function hoverActionOff() {
-    
+    /*
+    var canvas = document.getElementById('hexDrawingCanvas');
+    var ctx = canvas.getContext('2d');
+    var centerX = canvas.width / 2;
+    var centerY = canvas.height / 2;
+    ctx.drawImage(pageImg, 10, 10);
+    */
+    //pageImg.remove();
 }
 
 /* Example
@@ -343,19 +320,4 @@ canvas.onmousemove = function(e) {
 
 };
 
-*/
-
-/*
-function hexDraw(x, y, r) {
-    var str = "";
-    for (i = 0; i < 6; i++) {
-        var startX = x;
-        var startY = y;
-        var a = 2 * Math.PI / 6;
-        var x = startX + r * Math.cos(a * i);
-        var y = startY + r * Math.sin(a * i);
-        str += Math.round(x*100)/100 + "," + Math.round(y*100)/100 + " ";
-    }
-    document.getElementById('hex').setAttribute("points", str)
-}
 */
